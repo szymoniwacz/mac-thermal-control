@@ -11,6 +11,7 @@
 !.ai/docs/
 .ai/docs/*
 !.ai/docs/project-requirements.md
+!.ai/docs/architecture-direction.md
 
 # Materialized tool adapters from the private template.
 .agents/skills/
