@@ -1,0 +1,22 @@
+# Materialized private AI workflow. Existing tracked project overlay files remain tracked.
+.ai/*
+!.ai/project/
+.ai/project/*
+!.ai/project/decisions.md
+!.ai/project/glossary.md
+!.ai/project/product-context.md
+!.ai/project/roadmap.md
+!.ai/project/scope.md
+!.ai/project/vision.md
+!.ai/docs/
+.ai/docs/*
+!.ai/docs/project-requirements.md
+
+# Materialized tool adapters from the private template.
+.agents/skills/
+.cursor/commands/
+
+# Local environment and secrets.
+.env
+.env.*
+!.env.example
