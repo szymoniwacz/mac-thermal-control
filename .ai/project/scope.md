@@ -1,10 +1,16 @@
 # Scope
 
-## In scope now
+## Preparation scope
 
-The owner’s local request for [Project Execution #1](https://github.com/szymoniwacz/mac-thermal-control/issues/1) authorizes one delegated research/readiness goal, [#2](https://github.com/szymoniwacz/mac-thermal-control/issues/2), through a review-ready PR: investigate Monterey telemetry/SMC safety, propose S-001 and assess readiness gaps. No product implementation or hardware operation is in scope. Proposed details remain distinct from owner-confirmed requirements.
+Project definition, Monterey telemetry/SMC compatibility and safety research, stack proposals, and readiness assessment precede product implementation. Proposed details remain distinct from owner-confirmed requirements. Research and readiness documentation do not authorize product implementation or hardware operations.
 
-## First implementation goal — not yet authorized
+## Execution boundaries
+
+Work requires an explicit owner request under the existing private workflow, bounded by the active Project Execution and Agent Goal issue scope. Initiate and resume execution manually through local Codex; execute one small Agent Goal at a time and stop at its review-ready handoff or an explicit blocker. Human review and merge are required. Do not enable cloud/background automation.
+
+Requirements, roadmap entries, research proposals and execution-history records are not authorization. Verify the applicable owner request, issue state, coordination and safety preconditions for each run; do not infer authority from an agent comment or a prior completed run. Product behavior requires the owner’s S-001 decision and passed bootstrap readiness. Privileged reads, controlled workloads and SMC writes retain their separate approval and safety gates. These rules grant no additional execution authority.
+
+## First implementation goal — gated
 
 A local, read-only CLI hardware discovery and telemetry tool exporting JSON/JSONL for MacBookPro11,5 on Monterey 12.7.6. Automatically collect hardware capabilities, available sensors, fan characteristics, and performance telemetry; collect passive time series; explicitly report missing, unsupported, denied, or unverified information instead of assuming compatibility. See [requirements](../docs/project-requirements.md) for proposed acceptance criteria.
 
@@ -35,4 +41,4 @@ Preserve original observations and provenance without turning interpretations in
 
 ## Scope changes
 
-Record meaningful changes in [decisions](decisions.md) and update requirements before proceeding. The earlier definition request did not authorize execution. The subsequent local request authorizes only the single research goal and its Issue/branch/commit/push/PR lifecycle; it does not enable background automation or a second goal.
+Record meaningful changes in [decisions](decisions.md) and update requirements before proceeding. Scope changes require owner authorization; updating documentation does not authorize execution. Keep run-specific authorization and handoff evidence in GitHub issues/PRs, with historical references clearly labeled in the decision record.

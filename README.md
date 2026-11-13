@@ -29,7 +29,7 @@ Use human-reviewed PRs, macOS CI where feasible, and validation on the actual Ma
 
 Application setup, build, run, test, and configuration commands do not exist yet. Establish them with the first authorized implementation after stack selection and project readiness. Do not use template test results as evidence of hardware safety.
 
-This repository uses the private `ai-project-template` workflow through `.ai-template`. Agents start at [AGENTS.md](AGENTS.md), then `.ai/README.md`. Keep the project-owned `.ai/` overlay intact and reusable private workflow files out of public commits. See [workflow setup](docs/setup.md) and [automation integration documentation](docs/automation-setup.md); the current local request authorizes one research goal through a human-review PR and does not authorize background automation.
+This repository uses the private `ai-project-template` workflow through `.ai-template`. Agents start at [AGENTS.md](AGENTS.md), then `.ai/README.md`. Keep the project-owned `.ai/` overlay intact and reusable private workflow files out of public commits. See [workflow setup](docs/setup.md) and [automation integration documentation](docs/automation-setup.md); follow the [project execution boundaries](.ai/project/scope.md#execution-boundaries). Work requires explicit owner authorization, runs one goal at a time in local Codex, and ends with human review/merge; background automation is excluded.
 
 ## License
 
