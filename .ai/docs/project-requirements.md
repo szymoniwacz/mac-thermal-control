@@ -16,7 +16,7 @@ The first implementation goal is a local, read-only diagnostic CLI that automati
 
 These requirements define product intent, not execution authorization. Follow the [project execution boundaries](../project/scope.md#execution-boundaries) and verify the explicit owner request and active issue scope before work. Execution evidence belongs in GitHub issues/PRs; [execution history](../project/decisions.md#execution-history) is historical context only. Project readiness is not declared.
 
-The first interface is a CLI exporting JSON/JSONL. The final product will have a user-friendly macOS GUI. The owner has no language preference: investigate SMC compatibility and safety before proposing an implementation stack. Optional privileged read-only operations require explicit approval when necessary; any SMC writes require separate safety validation and authorization and remain excluded from discovery. Measurements stay local, with no automatic uploads and owner-controlled sharing and deletion. Use MIT with the existing Szymon Iwacz copyright, human-reviewed PRs, macOS CI where feasible, and validation on the actual MacBookPro11,5. Signed releases are deferred.
+The first interface is a CLI exporting JSON/JSONL. The final product will have a user-friendly macOS GUI. The owner approved Swift/Foundation with a minimal reviewed C boundary (S-001; D-017) after the compatibility/safety investigation. Optional privileged read-only operations require explicit approval when necessary; any SMC writes require separate safety validation and authorization and remain excluded from discovery. Measurements stay local, with no automatic uploads and owner-controlled sharing and deletion. Use MIT with the existing Szymon Iwacz copyright, human-reviewed PRs, macOS CI where feasible, and validation on the actual MacBookPro11,5. Signed releases are deferred.
 
 ## Users
 
@@ -153,13 +153,13 @@ No implementation library, private API, helper architecture, or external command
 
 ## Technical preferences
 
-The CLI-first interface and final user-friendly macOS GUI are confirmed. No implementation stack is selected and the owner has no language preference. Investigate SMC compatibility and safety before proposing a Monterey-compatible language, framework, dependency set, and toolchain. Research must assess read-only semantics, permission requirements, dependency behavior, and implications for later safe control and GUI integration. Record evidence and limitations before seeking the stack decision; research alone does not authorize hardware probing or SMC writes. The GUI framework and fan-control helper boundary remain later choices.
+The CLI-first interface and final user-friendly macOS GUI are confirmed. The owner approved Swift/Foundation with a minimal reviewed C boundary (S-001; D-017). Exact Monterey-compatible toolchain/SDK and dependencies remain to be reviewed and validated during bootstrap and implementation planning. Preserve the investigation’s evidence limits and review read-only semantics, permission requirements and dependency behavior before implementation; stack approval does not authorize hardware probing, privileged operations, stress tests or SMC writes. The GUI framework and fan-control helper boundary remain later choices.
 
 Proposed architecture direction: isolate read-only acquisition from normalization, quality checks, derived metrics, and reporting. Keep any future control capability outside the discovery executable. This is a boundary recommendation, not a selected framework or permission model.
 
 ## Active stack profile
 
-None selected; the compatibility/safety investigation and stack proposal are prepared for owner review (S-001). Existing reusable profiles are examples, not active product rules. Select an applicable profile or explicitly record N/A during bootstrap after the stack decision.
+No active profile selected. S-001 is resolved as Swift/Foundation with a minimal reviewed C boundary. Existing reusable profiles are examples, not active product rules. Select an applicable profile or explicitly record N/A during the separately resumed bootstrap.
 
 Product build/run/test/lint commands do not exist. Establish real commands in the first authorized scaffold-producing goal; do not invent placeholder commands or scaffold merely for readiness.
 
@@ -224,9 +224,9 @@ These are unconfirmed and do not authorize implementation.
 
 ## Open questions
 
-The five initial decision groups are answered; see D-007–D-011 in [decisions](../project/decisions.md). H-001 is resolved as historical transcription documented; original raw logs unavailable. The project definition is ready for owner approval; this does not authorize implementation or satisfy bootstrap readiness. Answers confirm the explicit choices recorded above, not every previously proposed implementation detail.
+The five initial decision groups are answered; see D-007–D-011 in [decisions](../project/decisions.md). H-001 is resolved as historical transcription documented; original raw logs unavailable. The owner approved the current project definition (D-018); this does not authorize implementation or satisfy bootstrap readiness. Answers confirm the explicit choices recorded above, not every previously proposed implementation detail.
 
-- **S-001 — Stack selection (blocks implementation, not definition review):** which stack should be adopted after investigating SMC compatibility and safety? The owner requests an evidence-based proposal and has no language preference. Do not select a language or dependency before that investigation. Return: review the [documented investigation and proposal](../../docs/monterey-telemetry-research.md), then record the owner’s stack decision before implementation/bootstrap readiness. The investigation used primary sources; no hardware operation or target compatibility validation was performed.
+- **S-001 — Resolved:** the owner approved A, Swift/Foundation with a minimal reviewed C boundary, on 2026-11-13 ([decision record](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6863771976); D-017). The [investigation](../../docs/monterey-telemetry-research.md) used primary sources; no hardware operation or target compatibility validation was performed. Exact toolchain/SDK, dependencies and bootstrap readiness remain pending.
 - **H-001 — Resolved:** historical transcription documented; original raw logs unavailable. See the [dedicated historical reference](../../docs/historical-reference-2026-11-13.md). No further source request blocks definition approval; this resolution does not upgrade the evidence to independently verified measurements.
 - **B-001 — Comparator reconfirmation (later):** historical context now records Macs Fan Control 1.5.23 Free and both fans on CPU PECI at 50°C/80°C. Reconfirm the actual version, both fan settings and CPU PECI source identity before controlled comparison; historical configuration is not verification of a future run. CPU PECI and CPU die are not assumed equivalent. This does not block definition approval or first-goal discovery.
 - **R-001 — First-goal detail review:** AC-01–AC-06, telemetry coverage, schemas, minimization fields, sampling bounds, and source-failure handling remain proposed review material. Refine them against compatibility evidence during first-goal planning, before implementation/capture as appropriate; no additional requirements are silently confirmed by the owner's five answers.
@@ -235,7 +235,7 @@ Deferred later decisions: GUI framework/accessibility/localization, control help
 
 ## First useful version
 
-A local, read-only diagnostic CLI that automatically collects hardware capabilities, available sensors, fan characteristics and performance telemetry, exports JSON/JSONL, and reports missing or unsupported information instead of assuming compatibility, with no fan setting changes and no generated workloads. First-goal implementation awaits the stack decision after compatibility/safety investigation, bootstrap readiness, and separate authorization. Proposed AC-01 through AC-06 are its reviewable completion criteria.
+A local, read-only diagnostic CLI that automatically collects hardware capabilities, available sensors, fan characteristics and performance telemetry, exports JSON/JSONL, and reports missing or unsupported information instead of assuming compatibility, with no fan setting changes and no generated workloads. S-001 is resolved; first-goal implementation still awaits bootstrap readiness and separate authorization. Proposed AC-01 through AC-06 are its reviewable completion criteria.
 
 ## Later versions
 
@@ -243,7 +243,7 @@ Follow the gated [roadmap](../project/roadmap.md): safety assessment, Apple Auto
 
 ## Project decision status
 
-Statuses follow the [project definition contract](../contracts/project-definition-contract.md). Confirmed policy is distinct from proposed engineering details. Deferred rows do not block the scoped first discovery goal; their reasons and return triggers are explicit. Stack selection remains an implementation blocker, intentionally awaiting investigation. No `default-accepted` values are claimed.
+Statuses follow the [project definition contract](../contracts/project-definition-contract.md). Confirmed policy is distinct from proposed engineering details. Deferred rows do not block the scoped first discovery goal; their reasons and return triggers are explicit. S-001 is resolved by D-017; bootstrap readiness remains unpassed. No `default-accepted` values are claimed.
 
 | Area | Status | Value / notes | Link / location / return trigger |
 |---|---|---|---|
@@ -262,7 +262,7 @@ Statuses follow the [project definition contract](../contracts/project-definitio
 | Integrations and failure handling | decided | Local read-only sources; explicitly approved privileged reads when necessary; exact source/error design proposed | Integrations; D-008; AC-03/AC-05; R-001 |
 | Authentication and authorization | decided | Explicit approval for necessary privileged reads; no SMC writes without separate safety validation and authorization | D-008; no operation-specific approval granted now |
 | Secrets, privacy, and sensitive data | decided | Local measurement storage, no automatic upload, owner-controlled sharing/deletion; field minimization remains proposed | D-009; security and privacy; R-001 |
-| Language, framework, and dependencies | blocking-question | Which stack should be adopted after SMC compatibility/safety investigation? No language preference; proposal required | S-001; D-007; resolve before implementation |
+| Language, framework, and dependencies | decided | Swift/Foundation with a minimal reviewed C boundary; exact toolchain/SDK and dependencies require review and validation | S-001 resolved; D-017; bootstrap and implementation planning |
 | Environments and deployment | decided | Owner's MacBookPro11,5 / Monterey 12.7.6 first; signed releases deferred | D-001/D-011 |
 | Configuration | deferred | Exact options/cadence/duration await stack/source design; no scoped discovery blocker | Return: first-goal planning; review bounds before capture |
 | Logging, monitoring, and errors | deferred | Measurement data policy confirmed; diagnostics fields and failure semantics need source design; no scoped discovery blocker | Return: first-goal schema/privacy and error-handling review before implementation; R-001 |
@@ -281,23 +281,23 @@ Definition coverage has been documented for every area. The bootstrap readiness 
 | Check | Result | Notes |
 |---|---|---|
 | Definition coverage complete | Documented | Every contract area has an explicit status and required metadata |
-| No `blocking-question` remains | No | S-001: stack proposal/decision follows SMC compatibility and safety investigation |
+| No `blocking-question` remains | Yes in current decision table | S-001 resolved by owner; remaining proposed details and readiness gates are not waived |
 | All `deferred` items have reason and return trigger | Documented | Deferred rows explain why they do not block the scoped first goal |
 | Template customization complete | Not assessed / incomplete | Complete bootstrap after owner decisions; reusable workflow preserved |
-| Stack profile selected or marked N/A | No | Pending S-001 investigation and stack decision |
+| Stack profile selected or marked N/A | No | S-001 approved; profile selection or N/A remains a bootstrap task |
 | Real project commands recorded | Deferred to first scaffold | No product scaffold; do not invent commands |
 | Root README describes the product | Yes | Product purpose, status, limitations and documentation links |
 | `AGENTS.md` describes repository role | Not assessed | Existing workflow adapter preserved; check during bootstrap |
 | Bootstrap markers removed | Partial / not assessed globally | Project context and requirements filled; full bootstrap still pending |
 | License and ownership decided | Yes | MIT and existing Szymon Iwacz copyright confirmed; D-010 |
 | CI, branch rules, and approvals decided | Policy confirmed; configuration pending | Human-reviewed PRs, macOS CI where feasible, actual-Mac validation; exact branch/check configuration during bootstrap; D-011 |
-| Project ready for first product task | Not declared | Resolve S-001 and complete bootstrap readiness; separate execution authorization required |
+| Project ready for first product task | Not declared | S-001 resolved; complete bootstrap readiness; separate execution authorization required |
 
 ## Definition review status
 
-**Ready for owner approval.** The GUI, three-policy benchmark comparison, and diagnostic-tool scope are explicit. H-001 is resolved as **historical transcription documented; original raw logs unavailable**. The dedicated reference preserves the supplied samples, reported context and limitations without claiming independent validation or controlled benchmarks. All contract decision areas have explicit statuses; remaining engineering proposals and phase gates are visible. Definition review readiness does not certify hardware behavior or pass the separate implementation-readiness gate.
+**Approved by the owner on 2026-11-13 (D-018).** The GUI, three-policy benchmark comparison, and diagnostic-tool scope are explicit. H-001 is resolved as **historical transcription documented; original raw logs unavailable**. The dedicated reference preserves the supplied samples, reported context and limitations without claiming independent validation or controlled benchmarks. All contract decision areas have explicit statuses; remaining engineering proposals and phase gates are visible. Definition review readiness does not certify hardware behavior or pass the separate implementation-readiness gate.
 
-Next: obtain owner approval of this definition, review the compatibility/safety investigation and stack proposal, resolve S-001, and complete [bootstrap customization and readiness](../onboarding/bootstrap-checklist.md) under an appropriately scoped request. Each execution requires an explicit owner request within the [project execution boundaries](../project/scope.md#execution-boundaries); definition approval, research completion and PR merge do not substitute for implementation readiness or operation-specific safety approvals.
+Next, only after the owner separately resumes Project Executor: complete [bootstrap customization and readiness](../onboarding/bootstrap-checklist.md) under an appropriately scoped request. Each execution requires an explicit owner request within the [project execution boundaries](../project/scope.md#execution-boundaries); definition approval, research completion and PR merge do not substitute for implementation readiness or operation-specific safety approvals.
 
 ## Historical definition validation and review handoff
 
@@ -309,8 +309,8 @@ Application tests, hardware/SMC validation, controlled workloads, and CI executi
 
 H-001 validation: all 21 timestamped sample rows were checked against the owner-supplied transcription, including column order and decimal precision. Reported machine/profile/ranges, Plimit/PROCHOT, pmset fields, workload context and uncertainty were preserved. This checks transcription fidelity only, not the original measurements.
 
-Owner review focus: approve the definition with H-001 explicitly classified as a transcription with unavailable raw logs; review the required GUI phase, three-policy comparison, and proposed acceptance/protocol details without treating them as measured results. S-001 remains the stack decision before implementation; B-001 and detailed GUI/control/workload choices return at their documented phase gates.
+Historical review focus: definition approval with H-001 classified as a transcription with unavailable raw logs, required GUI phase, three-policy comparison, and proposed acceptance/protocol details without treating them as measured results. Definition approval and S-001 were subsequently resolved by D-018/D-017; B-001 and detailed GUI/control/workload choices retain their documented phase gates.
 
 ## Research/readiness handoff — Goal #2
 
-[Monterey telemetry investigation and S-001 proposal](../../docs/monterey-telemetry-research.md) records primary-source evidence, read-only boundary risks, candidate stacks and remaining readiness gaps. S-001 remains `blocking-question`: Swift/Foundation with a narrow C boundary is recommended, not adopted. Target-device coverage and safety are unverified. Product commands and product CI are explicitly deferred to the first authorized scaffold-producing goal; adapter CI is not product validation. No bootstrap/readiness pass is claimed.
+[Monterey telemetry investigation and S-001 proposal](../../docs/monterey-telemetry-research.md) records primary-source evidence, read-only boundary risks, candidate stacks and remaining readiness gaps. At the research handoff, S-001 was pending. The owner subsequently approved Swift/Foundation with a minimal reviewed C boundary (D-017) and the current definition (D-018). Target-device coverage and safety are unverified. Product commands and product CI are explicitly deferred to the first authorized scaffold-producing goal; adapter CI is not product validation. No bootstrap/readiness pass is claimed. The approval authorizes no privileged operations, hardware stress tests or SMC writes. The owner will resume separately; no next Agent Goal starts in this decision-recording session.
