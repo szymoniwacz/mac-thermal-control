@@ -2,7 +2,7 @@
 
 Prepared 2026-11-13 for [Agent Goal #2](https://github.com/szymoniwacz/mac-thermal-control/issues/2), under [Project Execution #1](https://github.com/szymoniwacz/mac-thermal-control/issues/1).
 
-Status: **proposal for owner review; S-001 remains open**. This is source research, not target-device validation. No hardware commands, telemetry capture, privileged operations, workload generation, fan changes, builds or dependency installation were performed. The initial MacBookPro11,5 / Monterey 12.7.6 configuration is owner-reported. The [historical transcription](historical-reference-2026-11-13.md) remains unchanged and is not compatibility, safety or benchmark proof.
+Status: **research completed; owner subsequently approved S-001: A and the current project definition on 2026-11-13**. See the [decision record](../.ai/project/decisions.md#owner-approvals--2026-11-13). Recommendation wording and readiness assessments below preserve the research-stage evidence and proposals; exact toolchain/SDK and dependencies remain subject to review and validation. Bootstrap readiness remains unpassed. The approvals authorize no privileged operations, hardware stress tests or SMC writes. The owner will resume Project Executor separately; no next Agent Goal is started in this decision-recording session. This is source research, not target-device validation. No hardware commands, telemetry capture, privileged operations, workload generation, fan changes, builds or dependency installation were performed. The initial MacBookPro11,5 / Monterey 12.7.6 configuration is owner-reported. The [historical transcription](historical-reference-2026-11-13.md) remains unchanged and is not compatibility, safety or benchmark proof.
 
 ## Findings and candidate sources
 
@@ -54,7 +54,7 @@ Dependency assessment:
 - [smcFanControl's command source](https://github.com/hholtmann/smcFanControl/blob/e1bd672bcd2d72eddff9b6da7b9cae38e35c4206/smc-command/smc.c) carries GPL-2.0-or-later terms and includes control behavior. Use it as research evidence only here; do not copy it into this MIT product or silently adopt its distribution obligations. Any proposed reuse needs explicit license review.
 - Prefer Foundation and OS frameworks initially, with no third-party CLI or telemetry package required by this proposal. This does not remove Apple's SDK/tool license requirements. Audit any eventual reused code and transitive dependencies, preserve notices, and pin approved revisions before distribution. The project's existing MIT notice stays unchanged.
 
-## S-001 owner decision
+## S-001 proposal at research handoff
 
 **Recommendation A:** Swift using the Swift 5.7 language/tooling generation, Foundation, and a minimal reviewed C boundary for AppleSMC; no whole SMC library or third-party package adoption. Initially target an **x86_64 macOS 12** executable. This is a proposal, not a stack decision or compatibility claim.
 
@@ -71,7 +71,7 @@ Alternatives for owner review:
 
 The owner should choose A/B/C/D/Other separately on Project Execution #1 before implementation or stack-dependent bootstrap. Reviewing/merging this research PR alone does not approve A. No performance advantage is claimed for any language.
 
-## Readiness gaps and next safe sequence
+## Readiness gaps and next safe sequence at research handoff
 
 | Gate | Assessment at this goal |
 |---|---|
