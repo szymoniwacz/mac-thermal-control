@@ -6,7 +6,7 @@ Hardware safety takes precedence: verified fan limits, fault detection, reliable
 
 ## Status
 
-Project definition only. There is no application, installer, hardware validation, or demonstrated performance improvement yet. Initial target: the owner's **MacBookPro11,5, macOS Monterey 12.7.6**.
+Research/readiness preparation; stack selection and bootstrap are pending. There is no application, installer, hardware validation, or demonstrated performance improvement yet. Initial target: the owner's **MacBookPro11,5, macOS Monterey 12.7.6**.
 
 The first implementation goal is a **local, read-only CLI for hardware discovery and passive telemetry**, exporting **JSON/JSONL**. It automatically collects hardware capabilities, available sensors, fan characteristics and performance telemetry, explicitly reporting missing or unsupported information rather than assuming compatibility. The discovery CLI must not change fan settings or generate workloads. A dedicated required roadmap phase implements the user-friendly macOS GUI. Controlled workload testing follows thermal safety checks in a later phase.
 
@@ -16,11 +16,12 @@ Later benchmarks must compare **Apple Auto**, the owner's **Macs Fan Control pro
 
 - [Requirements, proposed acceptance criteria, and review status](.ai/docs/project-requirements.md)
 - [Vision](.ai/project/vision.md), [scope](.ai/project/scope.md), and [roadmap](.ai/project/roadmap.md)
+- [Monterey telemetry investigation and pending S-001 stack proposal](docs/monterey-telemetry-research.md)
 - [Confirmed decisions](.ai/project/decisions.md) and [glossary](.ai/project/glossary.md)
 
 ## Development
 
-The project definition is ready for owner approval. The historical transcription is documented with its evidence limitations; it is not independently verified raw data or controlled benchmarks. Implementation readiness remains pending SMC compatibility/safety investigation, a stack proposal and decision, and bootstrap checks. No language has been selected.
+The project definition is ready for owner approval. The historical transcription is documented with its evidence limitations; it is not independently verified raw data or controlled benchmarks. The [source investigation and stack proposal](docs/monterey-telemetry-research.md) are prepared for owner review. Implementation readiness still requires the owner’s stack decision and bootstrap checks. No language has been selected.
 
 Measurements will stay local, with no automatic uploads; the owner controls sharing/deletion. Necessary privileged read-only operations require explicit approval; any SMC writes require separate safety validation and authorization and are excluded from discovery.
 
@@ -28,7 +29,7 @@ Use human-reviewed PRs, macOS CI where feasible, and validation on the actual Ma
 
 Application setup, build, run, test, and configuration commands do not exist yet. Establish them with the first authorized implementation after stack selection and project readiness. Do not use template test results as evidence of hardware safety.
 
-This repository uses the private `ai-project-template` workflow through `.ai-template`. Agents start at [AGENTS.md](AGENTS.md), then `.ai/README.md`. Keep the project-owned `.ai/` overlay intact and reusable private workflow files out of public commits. See [workflow setup](docs/setup.md) and [automation integration documentation](docs/automation-setup.md); automation is not authorized by the current definition request.
+This repository uses the private `ai-project-template` workflow through `.ai-template`. Agents start at [AGENTS.md](AGENTS.md), then `.ai/README.md`. Keep the project-owned `.ai/` overlay intact and reusable private workflow files out of public commits. See [workflow setup](docs/setup.md) and [automation integration documentation](docs/automation-setup.md); follow the [project execution boundaries](.ai/project/scope.md#execution-boundaries). Work requires explicit owner authorization, runs one goal at a time in local Codex, and ends with human review/merge; background automation is excluded.
 
 ## License
 

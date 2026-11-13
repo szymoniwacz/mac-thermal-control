@@ -9,7 +9,7 @@ Confirmed by the owner's project-definition request and follow-up decisions, 202
 | D-003 | Hardware safety is essential | Verify fan limits, detect faults, reliably fall back to Apple automatic fan control, and prohibit unsafe SMC writes |
 | D-004 | First implementation goal is local, read-only discovery and telemetry | Automatically gather design/validation/benchmark evidence without changing fan settings; workloads follow thermal safety checks |
 | D-005 | Later scope includes benchmarking and optional Ruby Mode | Ruby Mode uses both fans at their verified supported maxima under appropriate protections |
-| D-006 | Use the existing ai-project-template workflow; this request is documentation only | No Issues, product code, commits, pushes, or project automation; ask about unresolved material choices |
+| D-006 | Use the existing ai-project-template workflow; the original definition request was documentation only | Historical request boundary: no Issues, product code, commits, pushes, or project automation; see Execution history for later scoped work |
 
 ## Follow-up decisions
 
@@ -31,4 +31,15 @@ Confirmed by the owner's project-definition request and follow-up decisions, 202
 | D-015 | Required final macOS GUI has a dedicated implementation phase | Roadmap phase 7 delivers GUI; optional Ruby Mode is phase 8; final product is incomplete without GUI |
 | D-016 | Resolve H-001 using the owner's transcription from an earlier ChatGPT conversation; original raw logs unavailable | Preserve exact reported samples/context in the dedicated historical reference; no verified fan limits, thermal-level interpretation, throttling conclusion or controlled benchmark claim |
 
-Current authorization remains documentation only, explicitly excluding Issues and PRs, implementation, commits, pushes, and project automation. No language, framework, privilege mechanism, controller algorithm, or numeric hardware limits have been chosen. The definition is ready for owner approval; H-001 is resolved as historical transcription documented, original raw logs unavailable; stack investigation/selection and bootstrap readiness remain before implementation.
+No language, framework, privilege mechanism, controller algorithm, or numeric hardware limits have been chosen. The definition is ready for owner approval; H-001 is resolved as historical transcription documented, original raw logs unavailable; owner stack selection and bootstrap readiness remain before implementation. Apply the [execution boundaries](scope.md#execution-boundaries) to future work.
+
+## Execution history
+
+These records describe past request boundaries, not standing permission for future runs. GitHub issues and PRs retain the execution and validation evidence.
+
+- **2026-11-13 — definition:** D-006 recorded the documentation-only request; it excluded Issues, product implementation, commits, pushes and automation.
+- **2026-11-13 — research/readiness:** the owner explicitly requested local execution of [Project #1](https://github.com/szymoniwacz/mac-thermal-control/issues/1), limited to one delegated goal. [Agent Goal #2](https://github.com/szymoniwacz/mac-thermal-control/issues/2) prepared the compatibility/safety investigation, S-001 proposal and readiness gaps in [PR #3](https://github.com/szymoniwacz/mac-thermal-control/pull/3). That request covered its Issue/commit/push/review-ready PR lifecycle and excluded product implementation, hardware operations, cloud automation and a second goal.
+
+## S-001 research handoff
+
+[Monterey telemetry research and stack proposal](../../docs/monterey-telemetry-research.md) recommends Swift/Foundation with a narrow reviewed C boundary as option A. This is an unadopted recommendation; S-001 remains a `blocking-question` until the owner selects a stack. No dependency, GUI framework, numeric hardware limit or recovery design has been adopted. Bootstrap readiness remains unpassed.
