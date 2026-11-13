@@ -1,6 +1,6 @@
 # Roadmap
 
-Phases describe intended sequencing, not executable authorization. Product readiness has not been declared.
+Phases describe intended sequencing, not executable authorization. Product readiness has not been declared. [Goal #2](https://github.com/szymoniwacz/mac-thermal-control/issues/2) prepares the [Monterey investigation and S-001 proposal](../../docs/monterey-telemetry-research.md); stack adoption and bootstrap completion remain pending.
 
 | Phase | Deliverable | Exit gate |
 |---|---|---|

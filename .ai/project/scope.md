@@ -2,7 +2,7 @@
 
 ## In scope now
 
-Project definition and documentation: vision, product context, requirements, decision status, initial roadmap, glossary, and confirmed decisions. Proposed details remain clearly distinguished from owner-confirmed requirements.
+The owner’s local request for [Project Execution #1](https://github.com/szymoniwacz/mac-thermal-control/issues/1) authorizes one delegated research/readiness goal, [#2](https://github.com/szymoniwacz/mac-thermal-control/issues/2), through a review-ready PR: investigate Monterey telemetry/SMC safety, propose S-001 and assess readiness gaps. No product implementation or hardware operation is in scope. Proposed details remain distinct from owner-confirmed requirements.
 
 ## First implementation goal — not yet authorized
 
@@ -35,4 +35,4 @@ Preserve original observations and provenance without turning interpretations in
 
 ## Scope changes
 
-Record meaningful changes in [decisions](decisions.md) and update requirements before proceeding. No Issues or PRs, code, commits, pushes, or automation launches are authorized by this definition request.
+Record meaningful changes in [decisions](decisions.md) and update requirements before proceeding. The earlier definition request did not authorize execution. The subsequent local request authorizes only the single research goal and its Issue/branch/commit/push/PR lifecycle; it does not enable background automation or a second goal.
