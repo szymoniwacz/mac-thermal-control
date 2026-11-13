@@ -1,116 +1,35 @@
-# ai-project-template-adapter
+# Mac Thermal Control
 
-Public GitHub template for using the private `szymoniwacz/ai-project-template` workflow without publishing its reusable workflow files.
+An open-source macOS application planned for Intel Macs. Its primary feature, **Smart Auto**, will proactively adjust cooling using temperatures, temperature trends, CPU/GPU activity, and performance indicators to improve sustained performance and reduce thermal throttling.
 
-## How it works
+Hardware safety takes precedence: verified fan limits, fault detection, reliable return to Apple's automatic fan control, and no unsafe SMC writes. Later stages include comparative benchmarking and optional **Ruby Mode**, which requests both fans' respective maximum verified supported RPM.
 
-```text
-target repository
-      |
-      v
-.ai-template/                 private git submodule
-      |
-      v
-./scripts/setup-ai-workflow.sh
-      |
-      +--> .ai/               runtime source of truth
-      +--> .agents/skills/    Codex repo skills
-      +--> .cursor/commands/  Cursor slash commands
-      +--> .gitlab/issue_templates/  GitLab issue templates
-      +--> .github/ISSUE_TEMPLATE/  GitHub issue templates
-```
+## Status
 
-Setup updates `.ai-template` to the latest configured remote revision, materializes the private `.ai/` tree, thin tool adapters, and provider issue templates locally, then restores project-owned tracked `.ai/**` files over the workflow.
+Project definition only. There is no application, installer, hardware validation, or demonstrated performance improvement yet. Initial target: the owner's **MacBookPro11,5, macOS Monterey 12.7.6**.
 
-Private workflow files may exist in the working tree, but they must never be committed to a public target repository. Materialized GitHub and GitLab issue templates are intended to be tracked so each provider can use them from the target repository's default branch.
+The first implementation goal is a **local, read-only CLI for hardware discovery and passive telemetry**, exporting **JSON/JSONL**. It automatically collects hardware capabilities, available sensors, fan characteristics and performance telemetry, explicitly reporting missing or unsupported information rather than assuming compatibility. The discovery CLI must not change fan settings or generate workloads. A dedicated required roadmap phase implements the user-friendly macOS GUI. Controlled workload testing follows thermal safety checks in a later phase.
 
-## Create a project
+Later benchmarks must compare **Apple Auto**, the owner's **Macs Fan Control profile (CPU PECI, 50–80°C)**, and **Smart Auto** under equivalent workloads. Historical observations must be preserved as reference data, with measurements and conclusions separate; they are not controlled benchmarks. H-001 is resolved as [historical transcription documented; original raw logs unavailable](docs/historical-reference-2026-11-13.md).
 
-After creating a repository from this template and cloning it:
+## Project documentation
 
-```bash
-./scripts/setup-ai-workflow.sh
-```
+- [Requirements, proposed acceptance criteria, and review status](.ai/docs/project-requirements.md)
+- [Vision](.ai/project/vision.md), [scope](.ai/project/scope.md), and [roadmap](.ai/project/roadmap.md)
+- [Confirmed decisions](.ai/project/decisions.md) and [glossary](.ai/project/glossary.md)
 
-The script initializes or updates `.ai-template` and materializes the current private workflow plus Codex/Cursor adapters. Your GitHub identity or automation environment must have read access to `szymoniwacz/ai-project-template`.
+## Development
 
-Then customize the tracked project context under:
+The project definition is ready for owner approval. The historical transcription is documented with its evidence limitations; it is not independently verified raw data or controlled benchmarks. Implementation readiness remains pending SMC compatibility/safety investigation, a stack proposal and decision, and bootstrap checks. No language has been selected.
 
-```text
-.ai/project/
-```
+Measurements will stay local, with no automatic uploads; the owner controls sharing/deletion. Necessary privileged read-only operations require explicit approval; any SMC writes require separate safety validation and authorization and are excluded from discovery.
 
-After setup, agents should read `.ai/README.md` and treat `.ai/` as the workflow source of truth. Tool adapters under `.agents/skills/` and `.cursor/commands/` only delegate into that shared workflow.
+Use human-reviewed PRs, macOS CI where feasible, and validation on the actual MacBookPro11,5. Signed releases are deferred.
 
-## Check the connection
+Application setup, build, run, test, and configuration commands do not exist yet. Establish them with the first authorized implementation after stack selection and project readiness. Do not use template test results as evidence of hardware safety.
 
-```bash
-./scripts/ai-workflow-doctor.sh
-```
-
-A ready repository ends with:
-
-```text
-Status: ready
-```
-
-## Prevent workflow leaks
-
-```bash
-./scripts/check-workflow-leak.sh
-```
-
-The check allows private workflow files to exist locally after setup, but fails if reusable materialized workflow files are tracked outside the project-owned overlay allowlist.
-
-## Update the private workflow
-
-Running setup again updates and rematerializes the workflow and tool adapters:
-
-```bash
-./scripts/setup-ai-workflow.sh
-```
-
-For a revision summary around the same operation, use:
-
-```bash
-./scripts/update-ai-workflow.sh
-```
-
-Neither script commits the changed `.ai-template` gitlink. Review and commit that change explicitly when you want the project to record the new workflow revision.
-
-## Cloud automation
-
-Public loaders live under:
-
-```text
-docs/ai-workflow/project-executor-loader.md
-docs/ai-workflow/goal-executor-loader.md
-```
-
-They contain no private executor logic. They only require the automation environment to obtain the private submodule, materialize `.ai/`, and then delegate to the private runtime.
-
-Automation credentials belong in the provider's runtime/secret configuration, never in this repository.
-
-See `docs/automation-setup.md` for the integration contract.
-
-## Tests
-
-```bash
-bash tests/test-adapter.sh
-```
-
-Tests use a local fake private workflow fixture. CI never requires access to the real private repository.
-
-## Design
-
-- `docs/repository-specification.md` — source-of-truth architecture and invariants.
-- `docs/setup.md` — target repository setup and workflow updates.
-- `docs/automation-setup.md` — cloud automation integration.
-
-## Security model
-
-Someone without access to `szymoniwacz/ai-project-template` may see the repository URL and committed submodule revision, but cannot fetch the private workflow contents. Setup fails closed when the private workflow cannot be loaded.
+This repository uses the private `ai-project-template` workflow through `.ai-template`. Agents start at [AGENTS.md](AGENTS.md), then `.ai/README.md`. Keep the project-owned `.ai/` overlay intact and reusable private workflow files out of public commits. See [workflow setup](docs/setup.md) and [automation integration documentation](docs/automation-setup.md); automation is not authorized by the current definition request.
 
 ## License
 
-MIT
+[MIT](LICENSE). Copyright (c) 2026 Szymon Iwacz; existing notice retained as confirmed by the owner.
