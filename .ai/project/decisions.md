@@ -66,3 +66,15 @@ On 2026-11-14, the new local Project #1 invocation selected self-correcting revi
 PR #8 is owner-merged as `a4d3c6ff1f3c398a8bfbcc1657a734d4d4ab90bb`; its main CI run 43577417652 passed both adapter jobs. The [fresh bootstrap assessment](../docs/project-requirements.md#project-readiness) passes with the recorded greenfield command/toolchain/product-CI deferrals. This does not certify product or target-device behavior. Earlier pending-bootstrap descriptions in this file are historical handoff state.
 
 The [R-001 specification](../../docs/discovery-specification.md) recommends a public-source first slice and a later separately reviewed AppleSMC adapter. Sequencing, schema/minimization, bounds and failure handling remain proposals awaiting owner acceptance before affected implementation. No new product design decision, dependency, source interface, privilege or hardware operation is approved by this record.
+
+## R-001 approval — 2026-11-14
+
+The owner explicitly approved **1: A; 2: Y** in local Codex and requested recording and continuation. [Project #1 decision record](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6879220276).
+
+| ID | Confirmed decision | Consequence |
+|---|---|---|
+| D-019 / R-001 | Public, unprivileged telemetry first; accept the discovery schema, minimization, bounds, failure and validation contract from PR #10 | Implement slice A incrementally; separately review AppleSMC later. Full discovery remains required. No privileged operations, SMC writes, hardware tests or workloads authorized |
+
+[Goal #11](https://github.com/szymoniwacz/mac-thermal-control/issues/11) starts with a reusable Swift report core and synthetic-only CLI. This is a working substep of slice A, not live telemetry or phase completion. No C/native telemetry boundary is added yet. SwiftPM uses a 5.7 manifest and macOS 12 deployment target, Foundation only and no third-party package; real commands and compiler/SDK limitations are in [development](../../docs/development.md). Later live-source, persistence, timing and device-validation work remains.
+
+The current authorization uses self-correcting review with conditional auto-merge for eligible **Low-risk** changes only; mandatory human review and safety gates remain. Earlier proposal and run-mode descriptions above are historical. These decisions do not enable background automation or grant standing operation-specific permission.

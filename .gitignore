@@ -21,3 +21,7 @@
 .env
 .env.*
 !.env.example
+
+# Local SwiftPM products and IDE state.
+.build/
+.swiftpm/

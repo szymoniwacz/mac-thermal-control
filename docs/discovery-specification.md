@@ -1,14 +1,16 @@
-# Read-only discovery specification — R-001 proposal
+# Read-only discovery specification — R-001
 
-Prepared for [Goal #9](https://github.com/szymoniwacz/mac-thermal-control/issues/9), 2026-11-14. **Proposed, awaiting owner review before affected implementation or capture.** Merging this document records a proposal; it does not approve R-001, a toolchain, a source interface, privileges or hardware operations.
+Prepared for [Goal #9](https://github.com/szymoniwacz/mac-thermal-control/issues/9), 2026-11-14. **Owner-approved: R-001 1: A; 2: Y**, recorded in [Project #1](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6879220276). Public, unprivileged telemetry first and the schema/minimization/bounds/failure/validation contract below are accepted. Exact native calls and target compatibility still require review. This approval authorizes no privileged operations, SMC writes, hardware tests or workloads.
+
+Goal #11 implements only the reusable report core and an explicitly synthetic CLI demo. Live public adapters, secure session persistence, real scheduling/deadlines and device validation remain unimplemented; neither slice A nor phase 1 is complete. See [development commands and limitations](development.md).
 
 The [requirements](../.ai/docs/project-requirements.md) remain authoritative for the product outcome and AC-01–AC-06. The [source investigation](monterey-telemetry-research.md) supplies interface evidence and its limitations. This specification bounds the next implementation slice; it does not narrow the final discovery deliverable or certify Monterey compatibility.
 
-## Recommended implementation sequence
+## Approved implementation sequence
 
-**A — recommended:** build the real Swift/Foundation CLI scaffold, serialization, scheduling and fixture tests with public, unprivileged system sources first. Explicitly report fan, temperature, GPU and performance gaps. Then prepare a separate AppleSMC read-adapter review and implementation goal. The first slice is useful inventory/passive context, but cannot complete phase 1 or demonstrate fan/sensor health.
+**A — owner-approved:** build the real Swift/Foundation CLI scaffold, serialization, scheduling and fixture tests with public, unprivileged system sources first. Explicitly report fan, temperature, GPU and performance gaps. Then prepare a separate AppleSMC read-adapter review and implementation goal. The first slice is useful inventory/passive context, but cannot complete phase 1 or demonstrate fan/sensor health.
 
-**B:** include a reviewed AppleSMC read adapter in the first implementation slice. This can yield fan/temperature evidence sooner, but requires a larger native-interface, ABI, license and cancellation review before any driver access. It still cannot guarantee target coverage or authorize privilege elevation.
+**B — alternative not selected:** include a reviewed AppleSMC read adapter in the first implementation slice. This can yield fan/temperature evidence sooner, but requires a larger native-interface, ABI, license and cancellation review before any driver access. It still cannot guarantee target coverage or authorize privilege elevation.
 
 **Other:** request a different scope or further research. Neither option allows writes, arbitrary driver commands, blind key sweeps, workloads, control helpers, background installation or automatic uploads. Source failure never triggers escalation or fallback to an unreviewed source.
 
@@ -20,7 +22,7 @@ Apple's [Xcode 14.2 notes](https://developer.apple.com/documentation/xcode-relea
 
 ## Source and capability plan
 
-All entries below are proposed; interface provenance and unresolved restrictions are in the investigation. Each expected capability must appear in the report even when not implemented or unavailable. API presence alone does not establish reliable target data.
+The capability plan is accepted for staged implementation; exact source calls remain candidates; interface provenance and unresolved restrictions are in the investigation. Each expected capability must appear in the report even when not implemented or unavailable. API presence alone does not establish reliable target data.
 
 | Capability | Slice A candidate | Evidence limit / explicit gap |
 |---|---|---|
@@ -35,7 +37,7 @@ All entries below are proposed; interface provenance and unresolved restrictions
 
 Apple documents [thermalState](https://developer.apple.com/documentation/foundation/processinfo/thermalstate-swift.property) as the system thermal-state property (rechecked 2026-11-14). Its practical reliability on the target remains unverified. The remaining candidates inherit the pinned research's provenance and limitations and require exact call-level review during implementation.
 
-## Output contract proposed for schema version 1
+## Approved output contract for schema version 1
 
 Write a JSON inventory and JSONL stream to an explicit, newly created local session directory. Refuse existing paths and symlinks rather than overwrite reports. Propose owner-only directory/file permissions. No default output to a shared directory, remote sink, compression/upload or hidden retention cleanup. Logs to stderr use bounded error codes/messages without raw source dumps or user paths. The owner chooses sharing and deletion.
 
@@ -61,7 +63,7 @@ Proposed persisted fields are limited to the inventory/capability and timing/obs
 
 ## Collection bounds and failure handling
 
-These are proposed software collection limits, **not thermal safety thresholds**:
+These are approved software collection limits, **not thermal safety thresholds**:
 
 - Default 1-second interval and 60-second session; permit intervals from 1 to 60 seconds and duration from 1 to 600 seconds. Reject invalid/nonfinite values. At most 600 sample frames, with inventory separate; no busy-loop retries or overlapping samples.
 - Total output cap 8 MiB per session, including inventory, stream and termination record; reserve space for `session_end` before accepting another record. Maximum serialized record 64 KiB; pending queue at most two records. On size/disk/serialization failure, stop visibly; never silently drop or invent samples. Storage bounds do not depend on free disk estimates alone.
@@ -86,9 +88,8 @@ Proposed exit statuses: 0 for bounded normal completion with a valid report (cap
 
 The scaffold goal must record real setup/build/run/test/typecheck/lint commands (or explain inapplicable categories), product CI and a test path that uses fixtures without querying real hardware. Keep existing Linux/macOS adapter checks. Hardware-backed CLI execution remains owner-run; no automatic device capture during build, tests or CI. Actual hardware testing is separate evidence from fixture correctness.
 
-## Owner review and next boundary
+## Owner decision and next boundary
 
-1. Choose sequencing **A (recommended)**, **B**, or **Other** above. A is a partial first discovery slice, retaining the full phase-1 deliverable.
-2. Accept this proposed schema/minimization/bounds/failure/validation contract for that slice: **Y (recommended)**, **N** (identify revisions), or **Other**. Acceptance does not validate numeric hardware limits, confer privilege, approve a native interface or certify compatibility.
+The owner chose **1: A** and **2: Y** on 2026-11-14: public, unprivileged telemetry first and acceptance of this discovery contract. Alternative B is not selected. The [remote decision record](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6879220276) preserves the exact scope.
 
-Toolchain availability and exact native calls are implementation-planning prerequisites, not inferred from either answer. The owner may supply installed compiler/SDK details when authorizing that next goal; missing evidence must remain explicit. No hardware command is requested by this documentation goal. Later SMC reads, any necessary privilege, workloads, control, independent recovery and optional Ruby Mode retain separate gates.
+Toolchain availability and exact native calls remain implementation-planning prerequisites. Hardware compatibility and numerical overhead budgets remain unvalidated. The approval grants no privileged operation, SMC write, hardware test or workload. Later AppleSMC read-interface review, any necessary privilege, control, independent recovery and optional Ruby Mode retain their separate gates.
