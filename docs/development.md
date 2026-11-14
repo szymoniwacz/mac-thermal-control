@@ -36,6 +36,12 @@ This script compiles the same module, executable and contract cases for **x86_64
 
 Typechecking is part of both Swift compiler build paths; `-warnings-as-errors` is the SwiftPM compiler-warning gate. There is no separate linter/formatter dependency or command. Shell syntax uses `bash -n scripts/*.sh tests/test-adapter.sh`; whitespace uses `git diff --check`. Existing adapter commands remain separate from product tests.
 
+## Per-source failure policy
+
+[Goal #15](https://github.com/szymoniwacz/mac-thermal-control/issues/15) adds the pure `SourceFailurePolicy` value type. Give each source a separate instance for each session and supply typed `SourceAttemptOutcome` results. Timeout or permission denial produces `.disabled` immediately. The first malformed response or generic error produces `.retryAtNextSample`; any consecutive failure then disables that source. A success before disabling returns to `.ready` and resets the consecutive-failure budget. Disabled instances ignore all later outcomes, including late successes, and preserve the original disabling cause. Only a fresh session policy starts ready again.
+
+These are decisions for a future collector, not enforced source execution or timers. The caller must retain the policy, honor disabling and wait for the next scheduled sample before a permitted retry. The policy does not schedule attempts, parse or classify payloads, change permissions, enforce deadlines, terminate workers, write reports or collect telemetry. Mapping actual source results and integrating scheduling/isolation remain separate reviewed work; this increment does not change CLI behavior. Synthetic tests exercise every failure pair, success resets, late outcomes and source/session independence.
+
 ## Toolchain and CI evidence
 
 Local compiler metadata on 2026-11-14: Apple Swift 5.7.2 (`swiftlang-5.7.2.135.5`), target `x86_64-apple-darwin21.6.0`, SDK 13.1. The installed Command Line Tools lack XCTest and the SwiftPM `PackageDescription` module, so local `swift build`/`swift run` cannot load the manifest. The direct `swiftc` path validates actual source with Swift 5.7; it does not repair or silently certify the local SwiftPM installation. No toolchain was installed or changed.
