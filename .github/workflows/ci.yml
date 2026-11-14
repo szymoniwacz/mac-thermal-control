@@ -42,3 +42,18 @@ jobs:
       - name: Workflow leak check
         shell: bash
         run: bash scripts/check-workflow-leak.sh
+
+  product-contract:
+    runs-on: macos-15-intel
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - name: Record compiler version
+        run: swift --version
+      - name: Build SwiftPM CLI and fixture test runner
+        run: swift build -Xswiftc -warnings-as-errors
+      - name: Run synthetic contract cases
+        run: swift run --skip-build ContractTests
+      - name: Build and test Intel macOS 12 artifact without XCTest
+        run: bash scripts/test-product.sh
