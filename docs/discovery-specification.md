@@ -4,6 +4,8 @@ Prepared for [Goal #9](https://github.com/szymoniwacz/mac-thermal-control/issues
 
 Goal #11 implements only the reusable report core and an explicitly synthetic CLI demo. Live public adapters, secure session persistence, real scheduling/deadlines and device validation remain unimplemented; neither slice A nor phase 1 is complete. See [development commands and limitations](development.md).
 
+Goal #13 adds bounded in-memory JSONL envelope recovery and explicit incompatible-version rejection. Its [reader contract and limitations](development.md#in-memory-session-envelope-recovery) distinguish framing/session completeness from full payload validation, source authenticity and device evidence. No file-reading CLI or live source is introduced.
+
 The [requirements](../.ai/docs/project-requirements.md) remain authoritative for the product outcome and AC-01–AC-06. The [source investigation](monterey-telemetry-research.md) supplies interface evidence and its limitations. This specification bounds the next implementation slice; it does not narrow the final discovery deliverable or certify Monterey compatibility.
 
 ## Approved implementation sequence

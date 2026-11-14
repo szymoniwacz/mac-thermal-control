@@ -189,7 +189,12 @@ final class ContractTests {
 }
 
 let suite = ContractTests()
+let reader = SessionReaderTests()
 let cases: [(String, () throws -> Void)] = [
+    ("reader round trip and maximum frames", { try reader.roundTrip() }),
+    ("reader truncation and corruption", { try reader.truncationAndCorruption() }),
+    ("reader schema and envelope failures", { try reader.versionsAndEnvelopeFailures() }),
+    ("reader bounds and payload limitations", { try reader.boundsAndPayloadLimitations() }),
     ("testEveryGapStatusSerializesNullInsteadOfZeroOrAnObservationTime", { try suite.testEveryGapStatusSerializesNullInsteadOfZeroOrAnObservationTime() }),
     ("testObservedZeroRetainsValueUnitAndProvenance", { try suite.testObservedZeroRetainsValueUnitAndProvenance() }),
     ("testInvalidObservationsAreRejected", { suite.testInvalidObservationsAreRejected() }),
