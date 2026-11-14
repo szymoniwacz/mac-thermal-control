@@ -190,7 +190,11 @@ final class ContractTests {
 
 let suite = ContractTests()
 let reader = SessionReaderTests()
+let sourcePolicy = SourceFailurePolicyTests()
 let cases: [(String, () throws -> Void)] = [
+    ("source failure transition matrix", { sourcePolicy.transitionMatrix() }),
+    ("source success resets active policy", { sourcePolicy.successResetsOnlyActivePolicies() }),
+    ("source disabling and instance isolation", { sourcePolicy.disabledIsAbsorbingAndInstancesAreIndependent() }),
     ("reader round trip and maximum frames", { try reader.roundTrip() }),
     ("reader truncation and corruption", { try reader.truncationAndCorruption() }),
     ("reader schema and envelope failures", { try reader.versionsAndEnvelopeFailures() }),

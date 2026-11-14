@@ -6,6 +6,8 @@ Goal #11 implements only the reusable report core and an explicitly synthetic CL
 
 Goal #13 adds bounded in-memory JSONL envelope recovery and explicit incompatible-version rejection. Its [reader contract and limitations](development.md#in-memory-session-envelope-recovery) distinguish framing/session completeness from full payload validation, source authenticity and device evidence. No file-reading CLI or live source is introduced.
 
+Goal #15 adds a [pure per-source failure policy](development.md#per-source-failure-policy) for typed outcomes, bounded consecutive-failure retries and session-long disabling. Collector result mapping, scheduling, deadlines and worker isolation are still unimplemented; the policy alone cannot execute or cancel a source attempt.
+
 The [requirements](../.ai/docs/project-requirements.md) remain authoritative for the product outcome and AC-01–AC-06. The [source investigation](monterey-telemetry-research.md) supplies interface evidence and its limitations. This specification bounds the next implementation slice; it does not narrow the final discovery deliverable or certify Monterey compatibility.
 
 ## Approved implementation sequence
