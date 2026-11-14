@@ -14,7 +14,7 @@ Start with the owner's MacBookPro11,5 running macOS Monterey 12.7.6. These are o
 
 The first implementation goal is a local, read-only diagnostic CLI that automatically collects hardware capabilities, available sensors, fan characteristics, and performance telemetry for design, validation, and benchmarking. It reports missing, unsupported, denied, or unverified information rather than assuming compatibility. It must not change fan settings. Controlled workload testing follows thermal safety checks. Later stages include Smart Auto, comparative benchmarking, and optional Ruby Mode using both fans at their respective maximum verified supported RPM.
 
-These requirements define product intent, not execution authorization. Follow the [project execution boundaries](../project/scope.md#execution-boundaries) and verify the explicit owner request and active issue scope before work. Execution evidence belongs in GitHub issues/PRs; [execution history](../project/decisions.md#execution-history) is historical context only. Project readiness is not declared.
+These requirements define product intent, not execution authorization. Follow the [project execution boundaries](../project/scope.md#execution-boundaries) and verify the explicit owner request and active issue scope before work. Execution evidence belongs in GitHub issues/PRs; [execution history](../project/decisions.md#execution-history) is historical context only. The current bootstrap readiness recheck is recorded below; scoped implementation readiness and R-001 approval remain separate.
 
 The first interface is a CLI exporting JSON/JSONL. The final product will have a user-friendly macOS GUI. The owner approved Swift/Foundation with a minimal reviewed C boundary (S-001; D-017) after the compatibility/safety investigation. Optional privileged read-only operations require explicit approval when necessary; any SMC writes require separate safety validation and authorization and remain excluded from discovery. Measurements stay local, with no automatic uploads and owner-controlled sharing and deletion. Use MIT with the existing Szymon Iwacz copyright, human-reviewed PRs, macOS CI where feasible, and validation on the actual MacBookPro11,5. Signed releases are deferred.
 
@@ -159,7 +159,7 @@ Proposed architecture direction: isolate read-only acquisition from normalizatio
 
 ## Active stack profile
 
-No active profile selected. S-001 is resolved as Swift/Foundation with a minimal reviewed C boundary. Existing reusable profiles are examples, not active product rules. Select an applicable profile or explicitly record N/A during the separately resumed bootstrap.
+Stack guidance is `not-applicable`: none of the available reusable profiles matches the approved Swift/Foundation stack with a minimal reviewed C boundary. Existing profiles remain examples, not active product rules. This bootstrap disposition is recorded in the readiness table below.
 
 Product build/run/test/lint commands do not exist. Establish real commands in the first authorized scaffold-producing goal; do not invent placeholder commands or scaffold merely for readiness.
 
@@ -226,16 +226,16 @@ These are unconfirmed and do not authorize implementation.
 
 The five initial decision groups are answered; see D-007–D-011 in [decisions](../project/decisions.md). H-001 is resolved as historical transcription documented; original raw logs unavailable. The owner approved the current project definition (D-018); this does not authorize implementation or satisfy bootstrap readiness. Answers confirm the explicit choices recorded above, not every previously proposed implementation detail.
 
-- **S-001 — Resolved:** the owner approved A, Swift/Foundation with a minimal reviewed C boundary, on 2026-11-13 ([decision record](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6863771976); D-017). The [investigation](../../docs/monterey-telemetry-research.md) used primary sources; no hardware operation or target compatibility validation was performed. Exact toolchain/SDK, dependencies and bootstrap readiness remain pending.
+- **S-001 — Resolved:** the owner approved A, Swift/Foundation with a minimal reviewed C boundary, on 2026-11-13 ([decision record](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6863771976); D-017). The [investigation](../../docs/monterey-telemetry-research.md) used primary sources; no hardware operation or target compatibility validation was performed. Exact toolchain/SDK and dependencies remain pending; the current bootstrap recheck is recorded below.
 - **H-001 — Resolved:** historical transcription documented; original raw logs unavailable. See the [dedicated historical reference](../../docs/historical-reference-2026-11-13.md). No further source request blocks definition approval; this resolution does not upgrade the evidence to independently verified measurements.
 - **B-001 — Comparator reconfirmation (later):** historical context now records Macs Fan Control 1.5.23 Free and both fans on CPU PECI at 50°C/80°C. Reconfirm the actual version, both fan settings and CPU PECI source identity before controlled comparison; historical configuration is not verification of a future run. CPU PECI and CPU die are not assumed equivalent. This does not block definition approval or first-goal discovery.
-- **R-001 — First-goal detail review:** AC-01–AC-06, telemetry coverage, schemas, minimization fields, sampling bounds, and source-failure handling remain proposed review material. Refine them against compatibility evidence during first-goal planning, before implementation/capture as appropriate; no additional requirements are silently confirmed by the owner's five answers.
+- **R-001 — First-goal detail review:** AC-01–AC-06, telemetry coverage, schemas, minimization fields, sampling bounds, and source-failure handling remain proposed review material. The [bounded specification](../../docs/discovery-specification.md) now provides concrete sequencing, schema, minimization, collection bounds and validation options for owner review. Refine them against compatibility evidence during first-goal planning, before implementation/capture as appropriate; no additional requirements are silently confirmed by the owner's five answers.
 
 Deferred later decisions: GUI framework/accessibility/localization, control helper and recovery architecture, thresholds and workload protocol, Smart Auto policy/noise tradeoffs, additional models, release packaging/signing/update policy. A user-friendly final GUI is required; only its design is deferred. Return triggers appear in the decision table and roadmap. These later choices do not block the first read-only goal unless their scope is introduced there.
 
 ## First useful version
 
-A local, read-only diagnostic CLI that automatically collects hardware capabilities, available sensors, fan characteristics and performance telemetry, exports JSON/JSONL, and reports missing or unsupported information instead of assuming compatibility, with no fan setting changes and no generated workloads. S-001 is resolved; first-goal implementation still awaits bootstrap readiness and separate authorization. Proposed AC-01 through AC-06 are its reviewable completion criteria.
+A local, read-only diagnostic CLI that automatically collects hardware capabilities, available sensors, fan characteristics and performance telemetry, exports JSON/JSONL, and reports missing or unsupported information instead of assuming compatibility, with no fan setting changes and no generated workloads. S-001 is resolved and bootstrap was rechecked after merged PR #8; first-goal implementation still requires R-001 review, scoped implementation readiness and authorization. Proposed AC-01 through AC-06 are its reviewable completion criteria.
 
 ## Later versions
 
@@ -243,7 +243,7 @@ Follow the gated [roadmap](../project/roadmap.md): safety assessment, Apple Auto
 
 ## Project decision status
 
-Statuses follow the [project definition contract](../contracts/project-definition-contract.md). Confirmed policy is distinct from proposed engineering details. Deferred rows do not block the scoped first discovery goal; their reasons and return triggers are explicit. S-001 is resolved by D-017; bootstrap readiness remains unpassed. No `default-accepted` values are claimed.
+Statuses follow the [project definition contract](../contracts/project-definition-contract.md). Confirmed policy is distinct from proposed engineering details. Deferred rows do not block the scoped first discovery goal; their reasons and return triggers are explicit. S-001 is resolved by D-017; bootstrap readiness was rechecked after merged PR #8. R-001 remains proposed before affected implementation/capture. No `default-accepted` values are claimed.
 
 | Area | Status | Value / notes | Link / location / return trigger |
 |---|---|---|---|
@@ -276,14 +276,14 @@ Statuses follow the [project definition contract](../contracts/project-definitio
 
 ## Project readiness
 
-Assessed in [Goal #7](https://github.com/szymoniwacz/mac-thermal-control/issues/7), following the owner-approved definition and S-001. Readiness-safe documentation is prepared; **bootstrap remains pending human review and merge**. No product behavior or hardware operation is authorized by this assessment. The next local run must verify the merged bootstrap and current evidence before declaring readiness passed or starting a product goal.
+Assessed in [Goal #7](https://github.com/szymoniwacz/mac-thermal-control/issues/7), following the owner-approved definition and S-001. **Bootstrap readiness passes for planning the first product task**, rechecked on 2026-11-14 after owner merge of [PR #8](https://github.com/szymoniwacz/mac-thermal-control/pull/8) as `a4d3c6ff1f3c398a8bfbcc1657a734d4d4ab90bb`. Its review handoff and owner merge resolve the bootstrap PR gate; [main CI run 43577417652](https://github.com/szymoniwacz/mac-thermal-control/actions/runs/43577417652) passed both adapter jobs. No product or hardware compatibility is certified. R-001 and scoped implementation readiness still gate affected product changes; this run prepares only the [discovery proposal](../../docs/discovery-specification.md). No hardware operation is authorized by this assessment.
 
 | Check | Result | Evidence / remaining gate |
 |---|---|---|
 | Definition coverage complete | Pass | Every decision area above has an explicit status; D-018 records owner approval |
 | No `blocking-question` remains | Pass for bootstrap | S-001 resolved by D-017; R-001 review still required before affected discovery implementation/capture |
 | All `deferred` items have reason and return trigger | Pass | Decision table and open questions identify phase/first-goal return points |
-| Template customization complete | Documentation prepared; human review pending | Product context and project-owned architecture direction filled; reusable workflow and adapters preserved |
+| Template customization complete | Pass after owner merge | Product context and project-owned architecture direction filled; reusable workflow and adapters preserved |
 | Stack profile selected or marked N/A | `not-applicable` | Available profiles cover Python, Ruby/Rails and TypeScript; none fits Swift/Foundation with C. Unselected reusable examples remain private and unchanged. See [architecture direction](architecture-direction.md) |
 | Real project commands recorded | Explicit greenfield deferral | No application scaffold exists. First scaffold-producing discovery goal must establish actual setup/run/test/lint/typecheck/build commands, or explain inapplicable categories, plus product CI before handoff; no placeholder commands or packaging |
 | Root README describes the product | Pass | Product purpose, initial target, status, limitations and development pointers |
@@ -291,9 +291,9 @@ Assessed in [Goal #7](https://github.com/szymoniwacz/mac-thermal-control/issues/
 | Bootstrap markers removed | Pass for project-owned files | No unresolved bootstrap placeholder in tracked product documentation; private reusable examples/checklists are not product state |
 | License and ownership decided | Pass | MIT; existing Szymon Iwacz copyright retained (D-010) |
 | CI, branch rules, and approvals decided | Documented | GitHub PRs to main; human review/merge, signed commits, no direct main push. Current CI covers adapter contracts on Linux/macOS; application CI is deferred to first scaffold. No background executor activation |
-| Project ready for first product task | **Pending human bootstrap review/merge** | Reverify this gate in the next explicitly authorized local run; target-device compatibility and later safety gates remain unproven |
+| Project ready for first product task | **Pass with explicit greenfield deferrals** | PR #8 merged; current main adapter CI passed. R-001 proposal review and scoped implementation readiness precede affected product changes; target-device compatibility and later safety gates remain unproven |
 
-Additional bootstrap evidence: the template gitlink, setup scripts, materialized `.ai/README.md`, executor helper and thin adapters are present; no workflow update is needed. No `default-accepted` choice is claimed. Local owner-controlled reports, no automatic uploads, explicit privilege approval and the prohibition on discovery control writes remain confirmed. Initial deployment targets the owner's Mac/OS; signed distribution is deferred. Bootstrap creates no data migration or service deployment; rollback is a reviewed forward revert PR. Goal #7's PR carries applicable local validation and remote CI evidence before review-ready; human bootstrap review remains required.
+Additional bootstrap evidence: the template gitlink, setup scripts, materialized `.ai/README.md`, executor helper and thin adapters are present; no workflow update is needed. No `default-accepted` choice is claimed. Local owner-controlled reports, no automatic uploads, explicit privilege approval and the prohibition on discovery control writes remain confirmed. Initial deployment targets the owner's Mac/OS; signed distribution is deferred. Bootstrap creates no data migration or service deployment; rollback is a reviewed forward revert PR. Goal #7's PR carries local validation and green remote CI evidence and has been merged by the owner. The fresh readiness check does not approve R-001 or any hardware operation.
 
 ### Existing repository validation
 
@@ -310,13 +310,13 @@ git diff --check
 
 ### First product goal obligations
 
-After human bootstrap review/merge and a fresh readiness check, select one bounded discovery outcome. Its scope must include any necessary real scaffold, documented commands and product CI. Review R-001, exact toolchain/SDK compatibility, native-call safety and any dependencies before affected implementation; collect target-Mac evidence only under explicit owner execution. Later workload/control approvals remain separate. The bootstrap PR creates no product runtime, stored measurements or migration to undo.
+Bootstrap PR #8 is merged and the fresh readiness check above passes with greenfield deferrals. Before implementing one bounded discovery outcome, obtain the affected R-001 decisions using the [reviewable proposal](../../docs/discovery-specification.md). Its scope must include any necessary real scaffold, documented commands and product CI. Review R-001, exact toolchain/SDK compatibility, native-call safety and any dependencies before affected implementation; collect target-Mac evidence only under explicit owner execution. Later workload/control approvals remain separate. The bootstrap PR creates no product runtime, stored measurements or migration to undo.
 
 ## Definition review status
 
 **Approved by the owner on 2026-11-13 (D-018).** The GUI, three-policy benchmark comparison, and diagnostic-tool scope are explicit. H-001 is resolved as **historical transcription documented; original raw logs unavailable**. The dedicated reference preserves the supplied samples, reported context and limitations without claiming independent validation or controlled benchmarks. All contract decision areas have explicit statuses; remaining engineering proposals and phase gates are visible. Definition review readiness does not certify hardware behavior or pass the separate implementation-readiness gate.
 
-Goal #7 prepares [bootstrap customization and readiness](../onboarding/bootstrap-checklist.md); human review and merge remain pending before the next explicitly authorized product goal. Each execution requires an explicit owner request within the [project execution boundaries](../project/scope.md#execution-boundaries); definition approval, research completion and PR merge do not substitute for implementation readiness or operation-specific safety approvals.
+Goal #7 delivered [bootstrap customization and readiness](../onboarding/bootstrap-checklist.md) in merged PR #8; the current readiness recheck is recorded above. R-001 remains proposed before affected implementation/capture. Each execution requires an explicit owner request within the [project execution boundaries](../project/scope.md#execution-boundaries); definition approval, research completion and PR merge do not substitute for implementation readiness or operation-specific safety approvals.
 
 ## Historical definition validation and review handoff
 

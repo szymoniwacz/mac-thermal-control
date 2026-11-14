@@ -51,10 +51,18 @@ These records describe past request boundaries, not standing permission for futu
 
 ## S-001 resolution
 
-[Monterey telemetry research and stack proposal](../../docs/monterey-telemetry-research.md) supplied the evidence for approved option A (D-017). S-001 is resolved; this does not establish target-device compatibility or safety. No third-party dependency, GUI framework, numeric hardware limit or recovery design has been adopted. Goal #7 prepares readiness-safe documentation; human bootstrap review/merge remains pending.
+[Monterey telemetry research and stack proposal](../../docs/monterey-telemetry-research.md) supplied the evidence for approved option A (D-017). S-001 is resolved; this does not establish target-device compatibility or safety. No third-party dependency, GUI framework, numeric hardware limit or recovery design has been adopted. Goal #7 delivered readiness-safe documentation in owner-merged PR #8; the subsequent readiness recheck is recorded in requirements.
 
 ## Bootstrap assessment — Goal #7
 
 The owner's subsequent local Project #1 invocation authorizes one readiness-safe goal, with self-correcting review and no auto-merge. [Goal #7](https://github.com/szymoniwacz/mac-thermal-control/issues/7) prepares the bootstrap documentation. Human review remains required by the project and bootstrap gate; this invocation does not waive it.
 
 The available reusable stack profiles do not match the approved Swift/C stack, so stack guidance is marked `not-applicable`. No profile or dependency is adopted. Under the greenfield bootstrap exception, actual application commands, exact toolchain/SDK and product CI are explicitly deferred to the first scaffold-producing discovery goal. See the [readiness assessment](../docs/project-requirements.md#project-readiness) for evidence and remaining gates. These are bootstrap dispositions, not new hardware or product design approvals.
+
+## Bootstrap recheck and R-001 proposal — Goal #9
+
+On 2026-11-14, the new local Project #1 invocation selected self-correcting review with eligible auto-merge, superseding earlier human-only merge wording for this run only. Mandatory review and hardware safety gates remain; no standing authorization or background automation is created.
+
+PR #8 is owner-merged as `a4d3c6ff1f3c398a8bfbcc1657a734d4d4ab90bb`; its main CI run 43577417652 passed both adapter jobs. The [fresh bootstrap assessment](../docs/project-requirements.md#project-readiness) passes with the recorded greenfield command/toolchain/product-CI deferrals. This does not certify product or target-device behavior. Earlier pending-bootstrap descriptions in this file are historical handoff state.
+
+The [R-001 specification](../../docs/discovery-specification.md) recommends a public-source first slice and a later separately reviewed AppleSMC adapter. Sequencing, schema/minimization, bounds and failure handling remain proposals awaiting owner acceptance before affected implementation. No new product design decision, dependency, source interface, privilege or hardware operation is approved by this record.
