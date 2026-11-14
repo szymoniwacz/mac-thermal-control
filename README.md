@@ -6,7 +6,7 @@ Hardware safety takes precedence: verified fan limits, fault detection, reliable
 
 ## Status
 
-Research/readiness preparation; the owner approved the current definition and Swift/Foundation with a minimal reviewed C boundary (S-001: A). Bootstrap readiness remains pending. There is no application, installer, hardware validation, or demonstrated performance improvement yet. Initial target: the owner's **MacBookPro11,5, macOS Monterey 12.7.6**.
+Research/readiness preparation; the owner approved the current definition and Swift/Foundation with a minimal reviewed C boundary (S-001: A). Readiness-safe bootstrap documentation is prepared in Goal #7, awaiting human review and merge. There is no application, installer, hardware validation, or demonstrated performance improvement yet. Initial target: the owner's **MacBookPro11,5, macOS Monterey 12.7.6**.
 
 The first implementation goal is a **local, read-only CLI for hardware discovery and passive telemetry**, exporting **JSON/JSONL**. It automatically collects hardware capabilities, available sensors, fan characteristics and performance telemetry, explicitly reporting missing or unsupported information rather than assuming compatibility. The discovery CLI must not change fan settings or generate workloads. A dedicated required roadmap phase implements the user-friendly macOS GUI. Controlled workload testing follows thermal safety checks in a later phase.
 
@@ -21,13 +21,13 @@ Later benchmarks must compare **Apple Auto**, the owner's **Macs Fan Control pro
 
 ## Development
 
-The owner approved the current project definition on 2026-11-13. The historical transcription is documented with its evidence limitations; it is not independently verified raw data or controlled benchmarks. The [source investigation](docs/monterey-telemetry-research.md) informed the approved Swift/Foundation stack with a minimal reviewed C boundary; see [decisions](.ai/project/decisions.md#owner-approvals--2026-11-13). Bootstrap readiness, toolchain/SDK review and target-device validation remain pending. The owner will resume Project Executor separately.
+The owner approved the current project definition on 2026-11-13. The historical transcription is documented with its evidence limitations; it is not independently verified raw data or controlled benchmarks. The [source investigation](docs/monterey-telemetry-research.md) informed the approved Swift/Foundation stack with a minimal reviewed C boundary; see [decisions](.ai/project/decisions.md#owner-approvals--2026-11-13). The [bootstrap assessment](.ai/docs/project-requirements.md#project-readiness) records the remaining human review/merge gate. Exact toolchain/SDK selection and target-device validation remain pending; see [architecture direction](.ai/docs/architecture-direction.md).
 
 Measurements will stay local, with no automatic uploads; the owner controls sharing/deletion. Necessary privileged read-only operations require explicit approval; any SMC writes require separate safety validation and authorization and are excluded from discovery.
 
 Use human-reviewed PRs, macOS CI where feasible, and validation on the actual MacBookPro11,5. Signed releases are deferred.
 
-Application setup, build, run, test, and configuration commands do not exist yet. Establish them with the first authorized implementation after project readiness. Do not use template test results as evidence of hardware safety.
+Application setup, build, run, test, lint, typecheck and configuration commands do not exist yet. They and applicable product CI are explicitly deferred to the first scaffold-producing discovery goal after bootstrap review/merge and a readiness recheck. No reusable stack profile matches Swift/C; stack guidance is marked `not-applicable` in requirements. Do not use template test results as evidence of hardware safety.
 
 This repository uses the private `ai-project-template` workflow through `.ai-template`. Agents start at [AGENTS.md](AGENTS.md), then `.ai/README.md`. Keep the project-owned `.ai/` overlay intact and reusable private workflow files out of public commits. See [workflow setup](docs/setup.md) and [automation integration documentation](docs/automation-setup.md); follow the [project execution boundaries](.ai/project/scope.md#execution-boundaries). Work requires explicit owner authorization, runs one goal at a time in local Codex, and ends with human review/merge; background automation is excluded.
 

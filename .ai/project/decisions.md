@@ -40,7 +40,7 @@ Recorded from the owner's explicit local Codex response in [Project #1](https://
 | D-017 / S-001 | Option A: Swift/Foundation with a minimal reviewed C boundary | Stack choice approved after the Monterey investigation; exact toolchain/SDK, dependencies and target compatibility still require review and validation |
 | D-018 | Current project definition approved (definition: Y) | H-001 remains historical transcription with original raw logs unavailable; proposed details retain their documented review gates, including R-001 |
 
-Bootstrap readiness remains unpassed. No privileged operation, hardware stress test, controlled workload or SMC write is authorized by these approvals. No GUI framework, privilege mechanism, controller algorithm or numeric hardware limit is selected. The owner requested decision recording only in this session and will resume Project Executor separately; do not start the next Agent Goal. Apply the [execution boundaries](scope.md#execution-boundaries) to future work.
+At the decision-recording handoff, bootstrap readiness remained unpassed. No privileged operation, hardware stress test, controlled workload or SMC write is authorized by these approvals. No GUI framework, privilege mechanism, controller algorithm or numeric hardware limit is selected. That historical session was limited to recording decisions; it did not authorize the next Agent Goal. Apply the [execution boundaries](scope.md#execution-boundaries) to future work.
 
 ## Execution history
 
@@ -51,4 +51,10 @@ These records describe past request boundaries, not standing permission for futu
 
 ## S-001 resolution
 
-[Monterey telemetry research and stack proposal](../../docs/monterey-telemetry-research.md) supplied the evidence for approved option A (D-017). S-001 is resolved; this does not establish target-device compatibility or safety. No third-party dependency, GUI framework, numeric hardware limit or recovery design has been adopted. Bootstrap readiness remains unpassed.
+[Monterey telemetry research and stack proposal](../../docs/monterey-telemetry-research.md) supplied the evidence for approved option A (D-017). S-001 is resolved; this does not establish target-device compatibility or safety. No third-party dependency, GUI framework, numeric hardware limit or recovery design has been adopted. Goal #7 prepares readiness-safe documentation; human bootstrap review/merge remains pending.
+
+## Bootstrap assessment — Goal #7
+
+The owner's subsequent local Project #1 invocation authorizes one readiness-safe goal, with self-correcting review and no auto-merge. [Goal #7](https://github.com/szymoniwacz/mac-thermal-control/issues/7) prepares the bootstrap documentation. Human review remains required by the project and bootstrap gate; this invocation does not waive it.
+
+The available reusable stack profiles do not match the approved Swift/C stack, so stack guidance is marked `not-applicable`. No profile or dependency is adopted. Under the greenfield bootstrap exception, actual application commands, exact toolchain/SDK and product CI are explicitly deferred to the first scaffold-producing discovery goal. See the [readiness assessment](../docs/project-requirements.md#project-readiness) for evidence and remaining gates. These are bootstrap dispositions, not new hardware or product design approvals.

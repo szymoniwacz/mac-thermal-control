@@ -1,5 +1,9 @@
 # Agent Instructions
 
+This is the Mac Thermal Control product repository: an Intel macOS application,
+starting with a read-only discovery CLI. Product context and safety gates live
+in `.ai/project/` and `.ai/docs/project-requirements.md`.
+
 This repository uses a private reusable AI workflow through the `.ai-template` submodule.
 
 If `.ai/README.md` is not available, run `./scripts/setup-ai-workflow.sh` first. If the private workflow cannot be loaded, stop rather than inventing replacement workflow rules.

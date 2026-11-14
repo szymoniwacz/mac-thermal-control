@@ -276,28 +276,47 @@ Statuses follow the [project definition contract](../contracts/project-definitio
 
 ## Project readiness
 
-Definition coverage has been documented for every area. The bootstrap readiness checklist has not been executed or passed; this skill stops before declaring project readiness. The observations below are documentation status, not certification.
+Assessed in [Goal #7](https://github.com/szymoniwacz/mac-thermal-control/issues/7), following the owner-approved definition and S-001. Readiness-safe documentation is prepared; **bootstrap remains pending human review and merge**. No product behavior or hardware operation is authorized by this assessment. The next local run must verify the merged bootstrap and current evidence before declaring readiness passed or starting a product goal.
 
-| Check | Result | Notes |
+| Check | Result | Evidence / remaining gate |
 |---|---|---|
-| Definition coverage complete | Documented | Every contract area has an explicit status and required metadata |
-| No `blocking-question` remains | Yes in current decision table | S-001 resolved by owner; remaining proposed details and readiness gates are not waived |
-| All `deferred` items have reason and return trigger | Documented | Deferred rows explain why they do not block the scoped first goal |
-| Template customization complete | Not assessed / incomplete | Complete bootstrap after owner decisions; reusable workflow preserved |
-| Stack profile selected or marked N/A | No | S-001 approved; profile selection or N/A remains a bootstrap task |
-| Real project commands recorded | Deferred to first scaffold | No product scaffold; do not invent commands |
-| Root README describes the product | Yes | Product purpose, status, limitations and documentation links |
-| `AGENTS.md` describes repository role | Not assessed | Existing workflow adapter preserved; check during bootstrap |
-| Bootstrap markers removed | Partial / not assessed globally | Project context and requirements filled; full bootstrap still pending |
-| License and ownership decided | Yes | MIT and existing Szymon Iwacz copyright confirmed; D-010 |
-| CI, branch rules, and approvals decided | Policy confirmed; configuration pending | Human-reviewed PRs, macOS CI where feasible, actual-Mac validation; exact branch/check configuration during bootstrap; D-011 |
-| Project ready for first product task | Not declared | S-001 resolved; complete bootstrap readiness; separate execution authorization required |
+| Definition coverage complete | Pass | Every decision area above has an explicit status; D-018 records owner approval |
+| No `blocking-question` remains | Pass for bootstrap | S-001 resolved by D-017; R-001 review still required before affected discovery implementation/capture |
+| All `deferred` items have reason and return trigger | Pass | Decision table and open questions identify phase/first-goal return points |
+| Template customization complete | Documentation prepared; human review pending | Product context and project-owned architecture direction filled; reusable workflow and adapters preserved |
+| Stack profile selected or marked N/A | `not-applicable` | Available profiles cover Python, Ruby/Rails and TypeScript; none fits Swift/Foundation with C. Unselected reusable examples remain private and unchanged. See [architecture direction](architecture-direction.md) |
+| Real project commands recorded | Explicit greenfield deferral | No application scaffold exists. First scaffold-producing discovery goal must establish actual setup/run/test/lint/typecheck/build commands, or explain inapplicable categories, plus product CI before handoff; no placeholder commands or packaging |
+| Root README describes the product | Pass | Product purpose, initial target, status, limitations and development pointers |
+| `AGENTS.md` describes repository role | Pass | Product repository identity added; canonical workflow pointers preserved |
+| Bootstrap markers removed | Pass for project-owned files | No unresolved bootstrap placeholder in tracked product documentation; private reusable examples/checklists are not product state |
+| License and ownership decided | Pass | MIT; existing Szymon Iwacz copyright retained (D-010) |
+| CI, branch rules, and approvals decided | Documented | GitHub PRs to main; human review/merge, signed commits, no direct main push. Current CI covers adapter contracts on Linux/macOS; application CI is deferred to first scaffold. No background executor activation |
+| Project ready for first product task | **Pending human bootstrap review/merge** | Reverify this gate in the next explicitly authorized local run; target-device compatibility and later safety gates remain unproven |
+
+Additional bootstrap evidence: the template gitlink, setup scripts, materialized `.ai/README.md`, executor helper and thin adapters are present; no workflow update is needed. No `default-accepted` choice is claimed. Local owner-controlled reports, no automatic uploads, explicit privilege approval and the prohibition on discovery control writes remain confirmed. Initial deployment targets the owner's Mac/OS; signed distribution is deferred. Bootstrap creates no data migration or service deployment; rollback is a reviewed forward revert PR. Goal #7's PR carries applicable local validation and remote CI evidence before review-ready; human bootstrap review remains required.
+
+### Existing repository validation
+
+These commands validate workflow adapters only; they do not build an application, read sensors, certify hardware safety or validate Monterey runtime compatibility:
+
+```sh
+bash -n scripts/*.sh tests/test-adapter.sh
+bash tests/test-adapter.sh
+bash scripts/check-workflow-leak.sh
+git diff --check
+```
+
+`.github/workflows/ci.yml` runs adapter checks on `ubuntu-latest` and `macos-latest` for PRs and main pushes. There is no `validate-workflow-contracts.yml` to switch to project mode. Keep both existing checks; do not treat them as product tests. Exact branch-protection configuration is not certified by this assessment; the required human review/merge policy applies regardless of GitHub enforcement.
+
+### First product goal obligations
+
+After human bootstrap review/merge and a fresh readiness check, select one bounded discovery outcome. Its scope must include any necessary real scaffold, documented commands and product CI. Review R-001, exact toolchain/SDK compatibility, native-call safety and any dependencies before affected implementation; collect target-Mac evidence only under explicit owner execution. Later workload/control approvals remain separate. The bootstrap PR creates no product runtime, stored measurements or migration to undo.
 
 ## Definition review status
 
 **Approved by the owner on 2026-11-13 (D-018).** The GUI, three-policy benchmark comparison, and diagnostic-tool scope are explicit. H-001 is resolved as **historical transcription documented; original raw logs unavailable**. The dedicated reference preserves the supplied samples, reported context and limitations without claiming independent validation or controlled benchmarks. All contract decision areas have explicit statuses; remaining engineering proposals and phase gates are visible. Definition review readiness does not certify hardware behavior or pass the separate implementation-readiness gate.
 
-Next, only after the owner separately resumes Project Executor: complete [bootstrap customization and readiness](../onboarding/bootstrap-checklist.md) under an appropriately scoped request. Each execution requires an explicit owner request within the [project execution boundaries](../project/scope.md#execution-boundaries); definition approval, research completion and PR merge do not substitute for implementation readiness or operation-specific safety approvals.
+Goal #7 prepares [bootstrap customization and readiness](../onboarding/bootstrap-checklist.md); human review and merge remain pending before the next explicitly authorized product goal. Each execution requires an explicit owner request within the [project execution boundaries](../project/scope.md#execution-boundaries); definition approval, research completion and PR merge do not substitute for implementation readiness or operation-specific safety approvals.
 
 ## Historical definition validation and review handoff
 
