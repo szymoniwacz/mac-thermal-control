@@ -191,7 +191,12 @@ final class ContractTests {
 let suite = ContractTests()
 let reader = SessionReaderTests()
 let sourcePolicy = SourceFailurePolicyTests()
+let sampling = SamplingScheduleTests()
 let cases: [(String, () throws -> Void)] = [
+    ("sampling boundaries and no catch-up", { try sampling.boundariesAndNoCatchUp() }),
+    ("sampling busy frames and missed slots", { try sampling.busyFramesAndMissedSlots() }),
+    ("sampling duration and frame bounds", { try sampling.durationAndFrameBounds() }),
+    ("sampling cancellation, clock faults and isolation", { try sampling.cancellationClockFaultsAndIsolation() }),
     ("source failure transition matrix", { sourcePolicy.transitionMatrix() }),
     ("source success resets active policy", { sourcePolicy.successResetsOnlyActivePolicies() }),
     ("source disabling and instance isolation", { sourcePolicy.disabledIsAbsorbingAndInstancesAreIndependent() }),
