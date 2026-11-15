@@ -58,6 +58,8 @@ Product CI checks SwiftPM separately, runs the same contract cases and the direc
 
 ## Remaining implementation
 
+The [public telemetry call and isolation review](public-telemetry-adapter-review.md) from Goal #19 proposes exact public APIs, selected fields, ownership/error handling, a bounded worker protocol and the fixture/device gates before live capture. Its detailed design remains subject to adoption/review before affected implementation; merging the proposal authorizes no hardware operations or security-boundary change.
+
 The [approved R-001 contract](discovery-specification.md) is the target, not a statement that every behavior exists in this increment. Live public-source adapters, native-call review and isolation, secure new-directory JSON/JSONL persistence, actual scheduling/deadlines/cancellation, full payload decoding, overhead measurement and owner-device validation remain future work. The C boundary is deferred until a reviewed native source needs it. Full GPU/fan/temperature/performance coverage remains required or must be reported as explicit gaps; no fallback to privileged or unreviewed sources is allowed.
 
 No privileged operation, SMC write, hardware test or workload is authorized. Later AppleSMC, controller ownership/recovery, workloads, Smart Auto, GUI and optional Ruby Mode retain their separate gates. Development tests and demo output are synthetic software verification only. Roll back this increment through a reviewed forward revert PR; it creates no measurement store or deployed service.

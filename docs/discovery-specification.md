@@ -10,6 +10,8 @@ Goal #15 adds a [pure per-source failure policy](development.md#per-source-failu
 
 Goal #17 adds a [pure sampling schedule policy](development.md#sampling-schedule-policy), tested with supplied elapsed times for bounded slots, explicit skipped ranges, no overlapping frames, no catch-up bursts and absorbing cancellation. It does not read clocks, run collectors or enforce native-call deadlines. Live runtime/report integration and device validation remain unimplemented; phase 1 remains incomplete.
 
+Goal #19 prepares the [call-level public telemetry and isolation review](public-telemetry-adapter-review.md), including failure-masking caveats, native ownership, restricted fields and proposed worker/validation details. R-001 remains accepted; these additional design details are proposals for review before affected implementation, not hardware approval or implemented compatibility.
+
 The [requirements](../.ai/docs/project-requirements.md) remain authoritative for the product outcome and AC-01–AC-06. The [source investigation](monterey-telemetry-research.md) supplies interface evidence and its limitations. This specification bounds the next implementation slice; it does not narrow the final discovery deliverable or certify Monterey compatibility.
 
 ## Approved implementation sequence
