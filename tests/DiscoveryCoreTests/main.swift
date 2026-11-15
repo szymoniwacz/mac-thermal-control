@@ -193,7 +193,13 @@ let reader = SessionReaderTests()
 let sourcePolicy = SourceFailurePolicyTests()
 let sampling = SamplingScheduleTests()
 let inventory = PublicInventoryTests()
+let publicSamples = PublicSampleSourcesTests()
 let cases: [(String, () throws -> Void)] = [
+    ("public CPU order, bounds and provenance", { try publicSamples.cpuOrderBoundsAndProvenance() }),
+    ("public CPU failures and count units", { try publicSamples.cpuFailuresAndCountUnits() }),
+    ("public CPU delta handoff", { try publicSamples.cpuDeltaHandoff() }),
+    ("public thermal categories and unknown", { try publicSamples.thermalCategoriesAndUnknown() }),
+    ("public source isolation and no caching", { try publicSamples.independentReadersAndNoCaching() }),
     ("inventory fixed allowlist and one fake read", { try inventory.allowlistAndSingleRead() }),
     ("inventory failures and length bounds", { try inventory.failuresAndLengthBounds() }),
     ("inventory bounded ASCII strings", { try inventory.boundedStrings() }),
