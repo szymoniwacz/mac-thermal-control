@@ -192,7 +192,12 @@ let suite = ContractTests()
 let reader = SessionReaderTests()
 let sourcePolicy = SourceFailurePolicyTests()
 let sampling = SamplingScheduleTests()
+let inventory = PublicInventoryTests()
 let cases: [(String, () throws -> Void)] = [
+    ("inventory fixed allowlist and one fake read", { try inventory.allowlistAndSingleRead() }),
+    ("inventory failures and length bounds", { try inventory.failuresAndLengthBounds() }),
+    ("inventory bounded ASCII strings", { try inventory.boundedStrings() }),
+    ("inventory integer widths and exact JSON", { try inventory.integerWidthsAndExactEncoding() }),
     ("sampling boundaries and no catch-up", { try sampling.boundariesAndNoCatchUp() }),
     ("sampling busy frames and missed slots", { try sampling.busyFramesAndMissedSlots() }),
     ("sampling duration and frame bounds", { try sampling.durationAndFrameBounds() }),

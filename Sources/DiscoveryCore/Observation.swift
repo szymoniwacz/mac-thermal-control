@@ -21,12 +21,14 @@ public enum ObservationStatus: String, CaseIterable, Encodable {
 
 public enum ObservationValue: Encodable {
     case number(Double)
+    case unsignedInteger(UInt64)
     case text(String)
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
         case .number(let number): try container.encode(number)
+        case .unsignedInteger(let integer): try container.encode(integer)
         case .text(let text): try container.encode(text)
         }
     }
@@ -56,6 +58,12 @@ public struct Observation: Encodable {
                 windowSeconds: Double? = nil) throws {
         if case .number(let number) = value {
             guard number.isFinite, let unit = unit,
+                  !unit.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                throw ContractError.invalidObservation
+            }
+        }
+        if case .unsignedInteger = value {
+            guard let unit = unit,
                   !unit.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                 throw ContractError.invalidObservation
             }

@@ -78,3 +78,16 @@ The owner explicitly approved **1: A; 2: Y** in local Codex and requested record
 [Goal #11](https://github.com/szymoniwacz/mac-thermal-control/issues/11) starts with a reusable Swift report core and synthetic-only CLI. This is a working substep of slice A, not live telemetry or phase completion. No C/native telemetry boundary is added yet. SwiftPM uses a 5.7 manifest and macOS 12 deployment target, Foundation only and no third-party package; real commands and compiler/SDK limitations are in [development](../../docs/development.md). Later live-source, persistence, timing and device-validation work remains.
 
 The current authorization uses self-correcting review with conditional auto-merge for eligible **Low-risk** changes only; mandatory human review and safety gates remain. Earlier proposal and run-mode descriptions above are historical. These decisions do not enable background automation or grant standing operation-specific permission.
+
+
+## Public telemetry design adoption — 2026-11-15
+
+The owner approved **Goal #19 design: 1: A** in local Codex and requested recording and continuation. [Project #1 decision record](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6897940905).
+
+| ID | Confirmed decision | Consequence |
+|---|---|---|
+| D-020 | Adopt the [Goal #19 public telemetry and worker design](../../docs/public-telemetry-adapter-review.md), as reviewed at `371055d742b05ecccc0572549c192be6f3f2f4de`, for staged implementation | Fixed calls/fields and power semantics; one same-permission unprivileged worker; bounded protocol/timing/cleanup. Start with synthetic/fake sources; implement one scoped goal at a time |
+
+The worker is process fault isolation, not an OS security sandbox. This resolves design adoption, not runtime compatibility or operation-specific approval. Native and IPC security-sensitive changes require human review and human merge; conditional auto-merge remains limited to eligible Low-risk work. No hardware tests, privileged operations, workloads or SMC writes are authorized. No capture or background automation is enabled.
+
+[Goal #21](https://github.com/szymoniwacz/mac-thermal-control/issues/21) records this approval and begins with the seven-field sysctl inventory normalization contract through injected fake readers. It adds no native source or worker. Exact unsigned integers avoid lossy Double conversion; malformed buffers become fixed-code gaps. The input-validation change requires human review and merge. See [development](../../docs/development.md) for implementation limits.
