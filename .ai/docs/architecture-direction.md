@@ -4,7 +4,7 @@
 
 Mac Thermal Control starts as a local, read-only discovery and passive telemetry CLI for Intel macOS. The owner approved Swift/Foundation with a minimal reviewed C boundary (S-001 / D-017). A user-friendly macOS GUI is required later; its framework is undecided. See [requirements](project-requirements.md) and the [Monterey investigation](../../docs/monterey-telemetry-research.md).
 
-The report core and synthetic-only Swift CLI are the first product increment; there are no third-party dependencies or live source adapters. This document records approved constraints and proposed decomposition, not a verified SMC interface or a detailed implementation design.
+The report core and synthetic-only Swift CLI are the first product increment; there are no third-party dependencies or live source adapters. This document records approved constraints and the adopted public telemetry design; no SMC interface or runtime compatibility is verified.
 
 ## Discovery structure — R-001 A/Y approved
 
@@ -15,7 +15,7 @@ The report core and synthetic-only Swift CLI are the first product increment; th
 
 The owner accepted the [R-001 contract](../../docs/discovery-specification.md) for public, unprivileged telemetry first (D-019). Exact native calls and later SMC interfaces remain separately reviewed. No sensor key, numeric fan limit, control selector or privileged helper is selected. Privileged reads require explicit operation approval; discovery never generates workloads or changes fan/control state.
 
-Goal #19 prepares a [call-level public telemetry and isolation review](../../docs/public-telemetry-adapter-review.md). It proposes a restricted public API/field allowlist, bounded worker lifecycle and implementation test gates. These detailed proposals remain subject to adoption/review before affected code; storing them does not enable live capture or approve a trust-boundary change. Native/IPC implementation and owner-device validation remain unperformed.
+The owner adopted the [Goal #19 call-level public telemetry and isolation design](../../docs/public-telemetry-adapter-review.md) as D-020 on 2026-11-15. It fixes the public call/field allowlist, power-context semantics, single same-permission unprivileged worker and bounded protocol/timing/cleanup. This is process fault isolation, not an OS security sandbox. Start with synthetic/fake-source validation. Native/IPC security-sensitive changes require human review and merge; hardware operations remain separately authorized. Goal #21 adds only fake-reader normalization for the seven sysctl inventory fields and exact UInt64 observation encoding. No native reader, worker, live CLI integration or owner-device validation is implemented.
 
 ## Deferred implementation choices
 
