@@ -8,6 +8,8 @@ Goal #13 adds bounded in-memory JSONL envelope recovery and explicit incompatibl
 
 Goal #15 adds a [pure per-source failure policy](development.md#per-source-failure-policy) for typed outcomes, bounded consecutive-failure retries and session-long disabling. Collector result mapping, scheduling, deadlines and worker isolation are still unimplemented; the policy alone cannot execute or cancel a source attempt.
 
+Goal #17 adds a [pure sampling schedule policy](development.md#sampling-schedule-policy), tested with supplied elapsed times for bounded slots, explicit skipped ranges, no overlapping frames, no catch-up bursts and absorbing cancellation. It does not read clocks, run collectors or enforce native-call deadlines. Live runtime/report integration and device validation remain unimplemented; phase 1 remains incomplete.
+
 The [requirements](../.ai/docs/project-requirements.md) remain authoritative for the product outcome and AC-01–AC-06. The [source investigation](monterey-telemetry-research.md) supplies interface evidence and its limitations. This specification bounds the next implementation slice; it does not narrow the final discovery deliverable or certify Monterey compatibility.
 
 ## Approved implementation sequence
