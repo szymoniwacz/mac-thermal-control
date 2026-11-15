@@ -66,6 +66,18 @@ Read failures are typed: permission denied and unsupported retain those statuses
 
 The same product tests cover the fixed field requests, failure/length/type/string bounds, exact integers above 2^53 and through UInt64.max, provenance/null semantics and unchanged CLI refusal. Input validation requires human review and merge, despite the synthetic-only execution path.
 
+## Fake-reader CPU ticks and thermal categories
+
+[Goal #23](https://github.com/szymoniwacz/mac-thermal-control/issues/23) adds the `PublicCPUTicks` and `PublicThermalPressure` normalization boundaries from adopted D-020. Both make exactly one injected read and reject empty check-time metadata before invoking it. Tests supply fake readers only; no native implementation ships and the CLI/report generator does not invoke them. Source IDs describe intended interfaces, not verified measurements. No retry, fallback, scheduling, worker, deadline or policy integration is provided.
+
+CPU success requires exactly four UInt32 counters and a returned count of four **elements**, in user/system/idle/nice order. Each is widened independently to `CPUTicks` UInt64 storage; zero and UInt32.max are valid cumulative counters. `PublicCPUTickResult.success` retains source identity and supplied application read/check time. It is not an activity percentage and has no report serializer. A failed read yields an error/null observation; count/storage mismatch yields invalid/null, with fixed reason codes and no raw data. A generic Mach failure never implies permission denial. Future native code must verify SDK layouts/counts, index order and port ownership independently.
+
+Synthetic handoff tests feed accepted ticks to `CPUActivityDelta`: the first sample, zero total delta and reset produce gaps, while advancing idle ticks with unchanged busy ticks produce a valid 0% interval. These tests do not implement runtime baseline management. A future caller must reset after failures, unavailable sources, skipped frames or sleep-like gaps, and retain the approved cache/freshness limitations.
+
+Thermal input is a fixed typed state: nominal/fair/serious/critical map to unitless categories; unknown/future state yields unverified/null with `thermal_state_unknown`, without retaining its raw number. A future Foundation reader must map known enums and its unknown default explicitly. Even a successful nominal result may come from an unsupported system; it proves no temperature, sensor support, freshness, safe condition or throttling state. Fake tests cover all states, provenance/null JSON, count extremes, failure mapping and independent reader calls without caching.
+
+This implements the adopted validation contract and requires human review/merge under the security policy. OS-version/battery normalization, native adapters and all runtime/device gates remain separate. The CLI remains synthetic-only and phase 1 remains incomplete.
+
 ## Remaining implementation
 
 The owner adopted the [Goal #19 public telemetry and isolation design](public-telemetry-adapter-review.md) as D-020 ([decision record](https://github.com/szymoniwacz/mac-thermal-control/issues/1#issuecomment-6897940905)): fixed public calls/fields, power semantics, one same-permission unprivileged worker and bounded protocol/timing/cleanup. It provides process fault isolation, not an OS security sandbox. Start with synthetic/fake sources and one scoped goal at a time; native/IPC security-sensitive changes require human review and human merge. No hardware operation or capture is authorized by adoption.
