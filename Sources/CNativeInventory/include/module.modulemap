@@ -1,0 +1,4 @@
+module CNativeInventory {
+    header "CNativeInventory.h"
+    export *
+}

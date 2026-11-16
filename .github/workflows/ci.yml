@@ -55,5 +55,11 @@ jobs:
         run: swift build -Xswiftc -warnings-as-errors
       - name: Run synthetic contract cases
         run: swift run --skip-build ContractTests
+      - name: Run native bridge fixtures without telemetry
+        run: swift run --skip-build NativeContractTests
+      - name: Verify release build and native bridge fixtures
+        run: |
+          swift build -c release -Xswiftc -warnings-as-errors
+          swift run -c release --skip-build NativeContractTests
       - name: Build and test Intel macOS 12 artifact without XCTest
         run: bash scripts/test-product.sh

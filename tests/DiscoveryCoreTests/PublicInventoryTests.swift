@@ -69,7 +69,8 @@ final class PublicInventoryTests {
             (.permissionDenied, .permissionDenied, "inventory_permission_denied"),
             (.unsupported, .unsupported, "inventory_unsupported"),
             (.insufficientBuffer, .invalid, "inventory_buffer_too_small"),
-            (.error, .error, "inventory_read_failed")
+            (.error, .error, "inventory_read_failed"),
+            (.invalidResponse, .invalid, "inventory_invalid_native_response")
         ]
         for field in PublicInventoryField.allCases {
             for (failure, status, reason) in failures {

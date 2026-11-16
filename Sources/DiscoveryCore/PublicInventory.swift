@@ -1,6 +1,6 @@
 import Foundation
 
-/// Fixed sysctl subset of the adopted public inventory design. No native reader ships here.
+/// Fixed sysctl subset of the adopted public inventory design.
 public enum PublicInventoryField: CaseIterable {
     case model, machine, cpuBrand, osBuild, memory, logicalCPUCount, physicalCPUCount
 
@@ -48,9 +48,9 @@ public enum PublicInventoryField: CaseIterable {
     }
 }
 
-/// A future native shim must classify errno itself and never expose raw diagnostics.
+/// Native shims classify errno themselves and never expose raw diagnostics.
 public enum InventoryReadFailure: CaseIterable {
-    case permissionDenied, unsupported, insufficientBuffer, error
+    case permissionDenied, unsupported, insufficientBuffer, error, invalidResponse
 }
 
 public enum InventoryReadResult {
@@ -84,6 +84,7 @@ public enum PublicInventory {
             case .unsupported: return try gap(.unsupported, "inventory_unsupported")
             case .insufficientBuffer: return try gap(.invalid, "inventory_buffer_too_small")
             case .error: return try gap(.error, "inventory_read_failed")
+            case .invalidResponse: return try gap(.invalid, "inventory_invalid_native_response")
             }
         case .success(let bytes, let count):
             guard count > 0, count <= field.capacity, count <= bytes.count,
