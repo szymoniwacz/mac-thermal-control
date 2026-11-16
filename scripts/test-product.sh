@@ -28,6 +28,28 @@ for target in ThermalCLI DiscoveryCoreTests; do
     -Xlinker -rpath -Xlinker @executable_path \
     "$source_directory"/*.swift -o "$BUILD/$output_name"
 done
+# Compile the production C boundary but execute only the separately substituted
+# syscall fixture. Sanitizers cover the real boundary's fixed-buffer handling.
+NATIVE_HEADERS="$ROOT/Sources/CNativeInventory/include"
+clang -std=c11 -Wall -Wextra -Werror -target x86_64-apple-macosx12.0 \
+  -I "$NATIVE_HEADERS" -c "$ROOT/Sources/CNativeInventory/Inventory.c" \
+  -o "$BUILD/Inventory.o"
+clang -std=c11 -Wall -Wextra -Werror -target x86_64-apple-macosx12.0 \
+  -fsanitize=address,undefined -I "$NATIVE_HEADERS" \
+  "$ROOT/tests/NativeInventoryTests/inventory.c" -o "$BUILD/NativeCContractTests"
+"$BUILD/NativeCContractTests"
+swiftc -warnings-as-errors -swift-version 5 -target x86_64-apple-macosx12.0 \
+  -emit-module -emit-library -module-name DiscoveryNative \
+  -emit-module-path "$BUILD/DiscoveryNative.swiftmodule" \
+  -I "$NATIVE_HEADERS" -I "$BUILD" -L "$BUILD" -lDiscoveryCore \
+  "$ROOT"/Sources/DiscoveryNative/*.swift "$BUILD/Inventory.o" \
+  -Xlinker -install_name -Xlinker @rpath/libDiscoveryNative.dylib \
+  -o "$BUILD/libDiscoveryNative.dylib"
+swiftc -warnings-as-errors -swift-version 5 -target x86_64-apple-macosx12.0 \
+  -I "$NATIVE_HEADERS" -I "$BUILD" -L "$BUILD" -lDiscoveryCore -lDiscoveryNative \
+  -Xlinker -rpath -Xlinker @executable_path \
+  "$ROOT/tests/DiscoveryNativeTests/main.swift" -o "$BUILD/NativeContractTests"
+"$BUILD/NativeContractTests"
 "$BUILD/ContractTests"
 python3 - "$BUILD/mac-thermal-control" <<'PY'
 import json
@@ -35,6 +57,10 @@ import subprocess
 import sys
 
 binary = sys.argv[1]
+from pathlib import Path
+fixture = str(Path(binary).with_name('NativeCContractTests'))
+assert '_sysctlbyname' not in subprocess.check_output(['nm', '-u', fixture], text=True)
+assert 'libDiscoveryNative' not in subprocess.check_output(['otool', '-L', binary], text=True)
 refused = subprocess.run([binary], capture_output=True, check=False)
 assert refused.returncode == 2 and refused.stdout == b''
 demo = subprocess.run([binary, '--demo', '--format', 'json'], capture_output=True, check=True)
